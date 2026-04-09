@@ -206,7 +206,7 @@ public function listExpenses(Request $request)
         ->whereYear('expense_date', $date->year)
         ->whereMonth('expense_date', $date->month)
         ->orderBy('expense_date', 'desc')
-        ->paginate(8);
+        ->paginate(10);
 
     return view('admin.expenses', compact('expenses', 'allExpenses', 'selectedMonth'));
 

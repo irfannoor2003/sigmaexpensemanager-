@@ -5,8 +5,8 @@
         <div class="max-w-7xl mx-auto space-y-8">
 
             {{-- Header --}}
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
+                <div class="w-full sm:w-auto">
                     <div class="flex items-center gap-2 mb-1">
                         <span class="flex h-2 w-2 rounded-full bg-pink-500 animate-pulse"></span>
                         <span class="text-[10px] uppercase tracking-widest text-pink-600 dark:text-pink-400 font-bold">
@@ -19,7 +19,7 @@
                 </div>
 
                 <button onclick="document.getElementById('requestModal').showModal()"
-                    class="flex items-center gap-2 px-5 py-2.5 bg-pink-500 hover:bg-pink-600 text-white text-[11px] font-bold uppercase rounded-xl transition-all shadow-lg shadow-pink-500/25 active:scale-95">
+                    class="w-full sm:w-auto flex justify-center items-center gap-2 px-5 py-2.5 bg-pink-500 hover:bg-pink-600 text-white text-[11px] font-bold uppercase rounded-xl transition-all shadow-lg shadow-pink-500/25 active:scale-95">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -61,7 +61,7 @@
                                     Current Balance
                                 </p>
                                 <h2
-                                    class="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white mt-2 tracking-tighter">
+                                    class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mt-2 tracking-tighter">
                                     <span class="text-pink-500 text-2xl sm:text-3xl">Rs.</span>
                                     {{ number_format($currentBalance) }}
                                 </h2>
@@ -89,7 +89,7 @@
                                     </p>
                                 </div>
                                 <span
-                                    class="text-xs font-black {{ str_replace('bg-', 'text-', $barColor) }}">{{ round($remainingPercent) }}%</span>
+                                    class="text-xs font-bold {{ str_replace('bg-', 'text-', $barColor) }}">{{ round($remainingPercent) }}%</span>
                             </div>
 
                             <div
@@ -110,10 +110,12 @@
                         class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
                         <div class="flex items-center gap-3 mb-2">
                             <div class="p-2 bg-emerald-500/10 text-emerald-500 rounded-lg">
+                                <!-- PKR Currency SVG -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                    <path d="M4 4h8a4 4 0 010 8H4v8m8-12l8 8" />
+                                    <!-- This creates a P-like shape with an extra slash for R -->
                                 </svg>
                             </div>
                             <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Monthly Spend</p>
@@ -173,7 +175,7 @@
                                 <line x1="12" x2="12" y1="3" y2="15" />
                             </svg>
                         </div>
-                        <p class="text-xs font-black dark:text-white uppercase tracking-tighter">Submit New Expense</p>
+                        <p class="text-xs font-bold  dark:text-white uppercase ">Submit New Expense</p>
                     </a>
 
                     <a href="/manager/my-expenses"
@@ -188,7 +190,7 @@
                                 <line x1="16" x2="8" y1="17" y2="17" />
                             </svg>
                         </div>
-                        <p class="text-xs font-black dark:text-white uppercase tracking-tighter">View Expense History
+                        <p class="text-xs font-bold dark:text-white uppercase tracking-tighter">View Expense History
                         </p>
                     </a>
                 </div>
@@ -209,7 +211,7 @@
                     <a href="{{ route('manager.expenses.history') }}"
                         class="group flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/5 hover:bg-pink-500/10 rounded-xl transition-all border border-transparent hover:border-pink-500/30">
                         <span
-                            class="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-pink-500 transition-colors">View
+                            class="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-pink-500 transition-colors">View
                             All History</span>
                         <svg class="text-gray-400 group-hover:text-pink-500 transition-transform group-hover:translate-x-1"
                             width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -255,7 +257,7 @@
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <span
-                                                class="inline-flex px-2 py-1 rounded-lg text-[9px] font-black uppercase bg-orange-500/10 text-orange-500">
+                                                class="inline-flex px-2 py-1 rounded-lg text-[9px] font-bold uppercase bg-orange-500/10 text-orange-500">
                                                 {{ strtoupper($item->status) }}
                                             </span>
                                         </td>
@@ -291,7 +293,7 @@
                     <a href="{{ route('manager.topup.history') }}"
                         class="group flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/5 hover:bg-emerald-500/10 rounded-xl transition-all border border-transparent hover:border-emerald-500/30">
                         <span
-                            class="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-emerald-500 transition-colors">View
+                            class="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-emerald-500 transition-colors">View
                             Records</span>
                         <svg class="text-gray-400 group-hover:text-emerald-500 transition-transform group-hover:translate-x-1"
                             width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -329,7 +331,7 @@
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <span
-                                                class="inline-flex px-2 py-1 rounded-lg text-[9px] font-black uppercase bg-emerald-500 text-white">
+                                                class="inline-flex px-2 py-1 rounded-lg text-[9px] font-bold uppercase bg-emerald-500 text-white">
                                                 CLEARED
                                             </span>
                                         </td>
@@ -355,7 +357,7 @@
         <div
             class="bg-white dark:bg-[#0f0f0f] w-[90vw] max-w-md p-8 border border-gray-200 dark:border-white/10 shadow-2xl rounded-[2rem]">
             <div class="flex justify-between items-center mb-6 ">
-                <h3 class="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Request Funds
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white uppercase tracking-tighter">Request Funds
                 </h3>
                 <button onclick="this.closest('dialog').close()" class="text-gray-400 hover:text-pink-500 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -383,7 +385,7 @@
                 </div>
 
                 <button type="submit"
-                    class="w-full py-4 bg-pink-500 hover:bg-pink-600 text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-pink-500/30 transition-all active:scale-95">
+                    class="w-full py-4 bg-pink-500 hover:bg-pink-600 text-white font-bold uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-pink-500/30 transition-all active:scale-95">
                     Submit Request
                 </button>
             </form>

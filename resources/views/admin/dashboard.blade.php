@@ -68,12 +68,12 @@
                             class="dark:text-black">Last 12 Months
                         </option>
                     </select>
-              @if(request('timeframe'))
-    <a href="{{ route('admin.dashboard') }}"
-        class="text-[10px] text-gray-400 hover:text-pink-500 border border-gray-200 dark:border-white/10 rounded-lg px-2 py-1 transition-colors">
-        Reset
-    </a>
-    @endif
+                    @if (request('timeframe'))
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="text-[10px] text-gray-400 hover:text-pink-500 border border-gray-200 dark:border-white/10 rounded-lg px-2 py-1 transition-colors">
+                            Reset
+                        </a>
+                    @endif
                 </div>
                 <canvas id="monthlyChart" class="max-h-[300px]"></canvas>
             </div>
@@ -129,13 +129,13 @@
 
             <div
                 class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto hidden md:block">
                     <table class="w-full text-left text-sm">
                         <thead>
                             <tr class="text-gray-400 border-b border-gray-100 dark:border-white/5">
-                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Member</th>
-                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Activity</th>
-                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Project</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Member Name</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Title</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Category</th>
                                 <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Amount</th>
                                 <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">Status
                                 </th>
@@ -189,6 +189,45 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- 📱 Mobile Activity Cards -->
+                <div class="md:hidden space-y-4">
+                    @forelse($recentExpenses as $expense)
+                        <div
+                            class="p-4 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
+
+                            <div class="flex justify-between items-center mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-pink-500/10 text-pink-500 flex items-center justify-center text-[10px] font-black uppercase">
+                                        {{ strtoupper(substr($expense->user->name, 0, 2)) }}
+                                    </div>
+                                    <span class="font-semibold text-gray-900 dark:text-white text-sm">
+                                        {{ $expense->user->name }}
+                                    </span>
+                                </div>
+
+                                <span
+                                    class="text-[10px] px-2 py-1 rounded-full
+                    {{ $statusClasses[$expense->status] ?? 'bg-gray-500/10 text-gray-500' }}">
+                                    {{ $expense->status }}
+                                </span>
+                            </div>
+
+                            <div class="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+                                <div><span class="font-semibold">Title:</span> {{ $expense->title }}</div>
+                                <div><span class="font-semibold">Category:</span>
+                                    {{ is_array($expense->category) ? $expense->category['name'] ?? 'General' : $expense->category->name ?? 'General' }}
+                                </div>
+                                <div class="font-mono text-pink-500 font-bold">
+                                    PKR {{ number_format($expense->amount) }}
+                                </div>
+                            </div>
+
+                        </div>
+                    @empty
+                        <p class="text-center text-gray-400 text-sm">No activity found</p>
+                    @endforelse
+                </div>
             </div>
 
             <!-- User Table -->
@@ -207,7 +246,7 @@
 
                 <div
                     class="overflow-hidden rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto hidden md:block">
                         <table class="w-full text-left text-sm">
                             <thead>
                                 <tr
@@ -279,28 +318,50 @@
                                                     </svg>
                                                 </a>
 
-                                                <form action="{{ route('admin.delete-user', $user->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Permanently remove this user?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
-                                                        title="Delete User">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                            viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                        </svg>
-                                                    </button>
-                                                </form>
+
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <!-- 📱 Mobile User Cards -->
+                    <div class="md:hidden space-y-4 mt-4 p-4">
+                        @foreach ($users as $user)
+                            <div
+                                class="p-4 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
+
+                                <div class="flex justify-between items-center mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[10px] font-bold">
+                                            {{ strtoupper(substr($user->name, 0, 2)) }}
+                                        </div>
+                                        <span class="font-semibold text-gray-900 dark:text-white text-sm">
+                                            {{ $user->name }}
+                                        </span>
+                                    </div>
+
+                                    <a href="{{ route('admin.edit-user', $user->id) }}"
+                                        class="text-xs text-indigo-500 font-bold">
+                                        Edit
+                                    </a>
+                                </div>
+
+                                <div class="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+                                    <div>
+                                        <span class="font-semibold">Role:</span>
+                                        <span class="uppercase">{{ str_replace('_', ' ', $user->role) }}</span>
+                                    </div>
+
+                                    <div>
+                                        <span class="font-semibold">PIN:</span> •••••
+                                    </div>
+                                </div>
+
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -422,4 +483,18 @@
                 });
             });
         </script>
+        <style>
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 3px;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: rgba(236, 72, 153, 0.2);
+                border-radius: 10px;
+            }
+
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                background: #ec4899;
+            }
+        </style>
 </x-app-layout>

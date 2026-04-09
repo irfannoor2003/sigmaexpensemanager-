@@ -63,16 +63,18 @@
                             Expense Category
                         </label>
                         <select name="category_id" required
-    class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1a1a1a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ea258e]/20 focus:border-[#ea258e] outline-none appearance-none transition-all cursor-pointer">
+                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1a1a1a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ea258e]/20 focus:border-[#ea258e] outline-none appearance-none transition-all cursor-pointer">
 
-    <option value="" disabled selected class="dark:bg-black dark:text-gray-400">Select Category</option>
+                            <option value="" disabled selected class="dark:bg-black dark:text-gray-400">Select
+                                Category</option>
 
-    @foreach ($categories as $cat)
-        <option value="{{ $cat->id }}" class="bg-white text-black dark:bg-[#1a1a1a] dark:text-white py-2">
-            {{ $cat->name }}
-        </option>
-    @endforeach
-</select>
+                            @foreach ($categories as $cat)
+                                <option value="{{ $cat->id }}"
+                                    class="bg-white text-black dark:bg-[#1a1a1a] dark:text-white py-2">
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     {{-- Title with Voice --}}

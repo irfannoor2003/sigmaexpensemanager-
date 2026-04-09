@@ -15,33 +15,35 @@
                 <div class="flex items-center gap-2 mb-1">
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span
-                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">Live
-                        Sync</span>
+                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">
+                        Live Sync
+                    </span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Financial Intelligence</h1>
-                <p class="text-gray-500 dark:text-gray-400 text-sm">HR Credits vs Manager Disbursements • FY
-                    {{ $year }}</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                    Financial Intelligence
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                    HR Credits vs Manager Disbursements • FY {{ $year }}
+                </p>
             </div>
 
             <form action="{{ route('admin.analytics') }}" method="GET"
-    class="flex items-center gap-2 bg-white dark:bg-white/5 p-2 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm">
+                class="flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-2 bg-white dark:bg-white/5 p-2 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm">
 
-    <select name="year"
-        class="bg-transparent border-none text-xs font-semibold dark:text-white focus:ring-0 cursor-pointer outline-none appearance-none">
+                <select name="year"
+                    class="w-full sm:w-auto bg-transparent border-none text-xs font-semibold dark:text-white focus:ring-0 cursor-pointer outline-none appearance-none px-3 py-2 rounded-xl">
+                    @foreach (range(date('Y'), date('Y') - 3) as $y)
+                        <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }} class="dark:text-black">
+                            Financial Year {{ $y }}
+                        </option>
+                    @endforeach
+                </select>
 
-        @foreach (range(date('Y'), date('Y') - 3) as $y)
-            <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }} class="dark:text-black">
-                Financial Year  {{ $y }}
-            </option>
-        @endforeach
-
-    </select>
-
-    <button
-        class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-pink-500/20">
-        Sync
-    </button>
-</form>
+                <button
+                    class="w-full sm:w-auto px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-pink-500/20">
+                    Sync
+                </button>
+            </form>
         </div>
 
 
@@ -60,11 +62,11 @@
                     </div>
                     <span
                         class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Total
-                        HR Credits</span>
+                        Credits By Hr</span>
                 </div>
                 <p class="text-3xl font-bold text-gray-900 dark:text-white font-mono">
                     {{ number_format($totalYearlyCredit) }}</p>
-                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">PKR Inbound</p>
+                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">PKR </p>
             </div>
 
             {{-- Manager Debits --}}
@@ -75,13 +77,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                         </svg>
                     </div>
-                    <span
-                        class="text-[10px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400">Manager
-                        Debits</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400">Total
+                        Spend By Managers </span>
                 </div>
                 <p class="text-3xl font-bold text-gray-900 dark:text-white font-mono">
                     {{ number_format($totalYearlyDebit) }}</p>
-                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">PKR Expenses</p>
+                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">PKR</p>
             </div>
 
             {{-- Net Balance --}}
@@ -95,8 +96,8 @@
                         </svg>
                     </div>
                     <span
-                        class="text-[10px] font-bold uppercase tracking-widest {{ $net >= 0 ? 'text-indigo-600 dark:text-indigo-400' : 'text-rose-600 dark:text-rose-400' }}">Current
-                        Liquidity</span>
+                        class="text-[10px] font-bold uppercase tracking-widest {{ $net >= 0 ? 'text-indigo-600 dark:text-indigo-400' : 'text-rose-600 dark:text-rose-400' }}">Remaining
+                        Balance </span>
                 </div>
                 <p
                     class="text-3xl font-bold font-mono {{ $net >= 0 ? 'text-gray-900 dark:text-white' : 'text-rose-500' }}">
@@ -113,7 +114,7 @@
         <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
-                    <h3 class="font-bold text-gray-900 dark:text-white">Monthly Variance</h3>
+                    <h3 class="font-bold text-gray-900 dark:text-white">Monthly Flow (Pkr)</h3>
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Capital Flow
                         Architecture</p>
                 </div>

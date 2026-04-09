@@ -34,7 +34,7 @@
 
                     <div class="flex flex-col justify-center">
                         <label
-                            class="text-[8px] font-black uppercase tracking-[0.2em] text-pink-500 mb-0.5 ml-0.5 opacity-80">
+                            class="text-[8px] font-bold uppercase tracking-[0.2em] text-pink-500 mb-0.5 ml-0.5 opacity-80">
                             Select Period
                         </label>
                         <div class="flex items-center gap-2">
@@ -47,14 +47,14 @@
                                 <line x1="3" x2="21" y1="10" y2="10" />
                             </svg>
                             <input type="month" name="month" value="{{ request('month', date('Y-m')) }}"
-                                class="bg-transparent border-none p-0 text-[11px] font-black dark:text-white focus:ring-0 uppercase tracking-tighter cursor-pointer appearance-none">
+                                class="bg-transparent border-none p-0 text-[11px] font-bold dark:text-white focus:ring-0 uppercase tracking-tighter cursor-pointer appearance-none">
                         </div>
                     </div>
 
                     <div class="h-8 w-[1px] bg-gray-200 dark:bg-white/10 mx-2"></div>
 
                     <button type="submit"
-                        class="relative overflow-hidden flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-7 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all duration-300 hover:shadow-pink-500/40 hover:-translate-y-0.5 active:scale-95 shadow-lg shadow-pink-500/20">
+                        class="relative overflow-hidden flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-7 py-3.5 rounded-xl text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 hover:shadow-pink-500/40 hover:-translate-y-0.5 active:scale-95 shadow-lg shadow-pink-500/20">
 
                         <span
                             class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
@@ -76,7 +76,7 @@
             </div>
 
             {{-- Stats Stack (Converted from Summary Layout) --}}
-            <div class="grid grid-cols-4 gap-4 w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
 
                 <div
                     class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
@@ -281,7 +281,7 @@
             <img id="modalImg" src=""
                 class="max-w-full max-h-[80vh] rounded-[2rem] shadow-[0_0_100px_rgba(234,37,142,0.2)] border border-white/10 object-contain transition-all duration-700 scale-95 opacity-0"
                 onload="this.classList.add('scale-100', 'opacity-100')">
-            <p class="text-white font-black uppercase tracking-[0.5em] text-[10px] mt-8 opacity-40">Click anywhere to
+            <p class="text-white font-bold uppercase tracking-[0.5em] text-[10px] mt-8 opacity-40">Click anywhere to
                 dismiss</p>
         </div>
     </div>

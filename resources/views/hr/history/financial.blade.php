@@ -48,7 +48,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="p-6 rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-between">
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">Total Annual Funding</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">Total Annual Amount Added</p>
                         <h3 class="text-2xl font-bold text-emerald-500 mt-1">Rs. {{ number_format($monthlyCredits->sum('total_credited')) }}</h3>
                     </div>
                     <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="p-6 rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-between">
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">Total Annual Spent</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">Total Annual Amount Spent</p>
                         <h3 class="text-2xl font-bold text-pink-500 mt-1">Rs. {{ number_format($monthlyStats->sum('total_spent')) }}</h3>
                     </div>
                     <div class="h-12 w-12 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500">
@@ -66,7 +66,7 @@
                 </div>
                 <div class="p-6 rounded-[2.5rem] bg-gray-900 dark:bg-white shadow-xl flex items-center justify-between">
                     <div>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold">Yearly Net Delta</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold">Yearly Savings</p>
                         @php $yearlyDiff = $monthlyCredits->sum('total_credited') - $monthlyStats->sum('total_spent'); @endphp
                         <h3 class="text-2xl font-bold {{ $yearlyDiff >= 0 ? 'text-emerald-400 dark:text-emerald-600' : 'text-rose-400 dark:text-rose-600' }} mt-1">
                             {{ $yearlyDiff >= 0 ? '+' : '' }}Rs. {{ number_format($yearlyDiff) }}
@@ -87,7 +87,7 @@
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px]">Month Period</th>
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px]">Approved Funds</th>
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px]">Actual Spending</th>
-                                <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px]">Net Balance</th>
+                                <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px]">Remaining  Balance</th>
 
                             </tr>
                         </thead>

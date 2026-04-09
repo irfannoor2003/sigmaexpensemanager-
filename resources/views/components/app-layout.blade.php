@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,18 +27,21 @@
         }
     </script>
 </head>
+
 <body class="antialiased bg-gray-50 dark:bg-[#050505] transition-colors duration-500 font-poppins">
 
     <x-theme-toggle />
 
     {{-- 🌈 Global Background Blobs --}}
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute w-[300px] h-[300px] sm:w-[500px] sm:h-[500px]
+        <div
+            class="absolute w-[300px] h-[300px] sm:w-[500px] sm:h-[500px]
             bg-pink-500/2 dark:bg-pink-500/5 blur-[100px] sm:blur-[120px]
             top-[-120px] left-[-120px] rounded-full">
         </div>
 
-        <div class="absolute w-[250px] h-[250px] sm:w-[400px] sm:h-[400px]
+        <div
+            class="absolute w-[250px] h-[250px] sm:w-[400px] sm:h-[400px]
             bg-purple-500/2 dark:bg-[#d6007b]/5 blur-[100px] sm:blur-[120px]
             bottom-[-120px] right-[-120px] rounded-full">
         </div>
@@ -54,4 +58,3 @@
 </body>
 
 </html>
-

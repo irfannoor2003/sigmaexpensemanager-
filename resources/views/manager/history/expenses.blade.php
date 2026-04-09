@@ -46,12 +46,7 @@
                     </div>
                 </div>
 
-                <div class="flex gap-2">
-                    {{-- Compact top pagination --}}
-                    @if(method_exists($expenses, 'links'))
-                        {{ $expenses->links('pagination::tailwind') }}
-                    @endif
-                </div>
+
             </div>
 
             {{-- 3. Main Table Container --}}

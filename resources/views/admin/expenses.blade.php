@@ -10,29 +10,60 @@
             </svg>
         </a>
         {{-- Header --}}
-        <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div class="mb-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+
+            <!-- LEFT SIDE -->
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span
-                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">System
-                        Live</span>
+                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">
+                        System Live
+                    </span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Financial Ledger</h1>
-                <p class="text-gray-500 dark:text-gray-400 text-sm">{{ $allExpenses->count() }} transactions • Sigma
-                    Engineering Services</p>
+
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                    Financial Ledger
+                </h1>
+
+                <p class="text-gray-500 dark:text-gray-400 text-sm">
+                    {{ $allExpenses->count() }} transactions • Sigma Engineering Services
+                </p>
             </div>
 
-            {{-- Filter Form --}}
+            <!-- RIGHT SIDE (FILTER) -->
             <form method="GET"
-                class="flex items-center gap-2 bg-white dark:bg-white/5 p-2 rounded-2xl border border-gray-200 dark:border-white/10 shadow-sm">
-                <input type="month" name="month" value="{{ request('month', now()->format('Y-m')) }}"
-                    class="bg-transparent border-none text-xs font-semibold dark:text-white focus:ring-0 cursor-pointer">
+                class="w-full lg:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2
+           bg-white dark:bg-white/5 p-2 rounded-2xl
+           border border-gray-200 dark:border-white/10 shadow-sm">
+
+                <div class="relative w-full sm:w-auto">
+                    <input type="month" name="month" value="{{ request('month', now()->format('Y-m')) }}"
+                        class="appearance-none w-full sm:w-auto px-3 py-2 rounded-xl bg-transparent
+                   text-xs font-semibold dark:text-white
+                   focus:ring-2 focus:ring-pink-500 outline-none cursor-pointer">
+
+                    <!-- Custom calendar icon overlay -->
+                    <div
+                        class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                </div>
+
                 <button
-                    class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-pink-500/20">
+                    class="w-full sm:w-auto px-5 py-2
+               bg-pink-500
+               hover:from-pink-600 hover:to-rose-600
+               text-white text-[10px] font-bold uppercase tracking-widest
+               rounded-xl transition-all shadow-lg shadow-pink-500/20
+               hover:scale-[1.02] active:scale-95">
                     Sync
                 </button>
             </form>
+
         </div>
 
 
@@ -97,14 +128,13 @@
             </div>
         </div>
 
-        {{-- Ledger Table --}}
-        <div class="flex justify-between items-center mb-6">
-            <h3 class="font-bold text-lg text-gray-900 dark:text-white">Live Activity Stream</h3>
-        </div>
 
+        <!-- Ledger Table -->
         <div
             class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
+
+            <!-- Desktop Table -->
+            <div class="hidden md:block w-full">
                 <table class="w-full text-left text-sm">
                     <thead>
                         <tr class="text-gray-400 border-b border-gray-100 dark:border-white/5">
@@ -128,9 +158,7 @@
                                             class="font-semibold text-gray-900 dark:text-white">{{ $exp->user->name }}</span>
                                     </div>
                                 </td>
-                                <td class="py-4 text-gray-500 dark:text-gray-400">
-                                    {{ $exp->title }}
-                                </td>
+                                <td class="py-4 text-gray-500 dark:text-gray-400">{{ $exp->title }}</td>
                                 <td class="py-4">
                                     <span
                                         class="px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-tighter">
@@ -138,25 +166,56 @@
                                     </span>
                                 </td>
                                 <td class="py-4 font-mono font-bold text-pink-600 dark:text-pink-400">
-                                    {{ number_format($exp->amount) }} PKR
-                                </td>
+                                    {{ number_format($exp->amount) }} PKR</td>
                                 <td class="py-4 text-right text-xs text-gray-400 dark:text-gray-500 font-semibold">
-                                    {{ \Carbon\Carbon::parse($exp->expense_date)->format('d M, Y') }}
-                                </td>
+                                    {{ \Carbon\Carbon::parse($exp->expense_date)->format('d M, Y') }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="py-12 text-center">
-                                    <p class="text-gray-400 italic text-sm">No transactions recorded for this period.
-                                    </p>
-                                </td>
+                                <td colspan="5" class="py-12 text-center text-gray-400 italic text-sm">No
+                                    transactions recorded for this period.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
-                <div class="mt-6">
-                    {{ $expenses->appends(request()->query())->links() }}
-                </div>
+            </div>
+
+            <!-- Mobile Stacked Cards -->
+            <div class="md:hidden space-y-4 mt-4">
+                @foreach ($expenses as $exp)
+                    <div
+                        class="p-4 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-pink-500/10 text-pink-500 flex items-center justify-center text-[10px] font-black uppercase">
+                                    {{ strtoupper(substr($exp->user->name, 0, 2)) }}
+                                </div>
+                                <span
+                                    class="font-semibold text-gray-900 dark:text-white text-sm">{{ $exp->user->name }}</span>
+                            </div>
+                            <span
+                                class="text-xs text-gray-400 dark:text-gray-500 font-semibold">{{ \Carbon\Carbon::parse($exp->expense_date)->format('d M, Y') }}</span>
+                        </div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+                            <div><span class="font-semibold">Title:</span> {{ $exp->title }}</div>
+                            <div>
+                                <span class="font-semibold">Category:</span>
+                                <span
+                                    class="px-2 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 font-bold uppercase tracking-tighter">
+                                    {{ is_array($exp->category) ? $exp->category['name'] ?? 'General' : $exp->category->name ?? 'General' }}
+                                </span>
+                            </div>
+                            <div><span class="font-semibold">Amount:</span> <span
+                                    class="font-mono font-bold text-pink-600 dark:text-pink-400">{{ number_format($exp->amount) }}
+                                    PKR</span></div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="mt-6">
+                {{ $expenses->appends(request()->query())->links() }}
             </div>
         </div>
 

@@ -12,7 +12,7 @@ class ExpenseCategorySeeder extends Seeder
      */
     public function run(): void
 {
-    $categories = ['Bilty', 'Cash', 'Office Supplies/Expenses', 'Misc/Mobile Load','Food/Entertainment','Salary','Parking','Water Bottle Refill','Other' ];
+    $categories = ['Bilty', 'Cash', 'Office Supplies/Expenses', 'Mobile Load','Food/Entertainment','Mis Salary','Parking','Water Bottle Refill','Miscellaneous' ];
     foreach($categories as $cat){
         \App\Models\ExpenseCategory::create(['name' => $cat]);
     }

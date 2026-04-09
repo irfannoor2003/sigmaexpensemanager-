@@ -23,7 +23,7 @@ class ExpenseController extends Controller
         // 2. Add 'created_at' to the list
         ->select('title', 'expense_date', 'amount', 'status', 'created_at', \DB::raw("'debit' as type"))
         ->latest()
-        ->take(10)
+        ->take(5)
         ->get();
 
         // Approved self-requested top-ups
@@ -31,7 +31,8 @@ class ExpenseController extends Controller
             ->where('type', 'credit')
             ->where('status', 'approved')
             ->where('created_by', $user->id)
-            ->get();
+            ->get()
+            ->take(2);
 
         // HR/Manager manual credits
         $hrManualCredits = WalletTransaction::where('user_id', $user->id)
@@ -41,7 +42,8 @@ class ExpenseController extends Controller
                 $q->where('created_by', '!=', $user->id)
                   ->orWhereNull('created_by'); // include HR manual credits
             })
-            ->get();
+            ->get()
+            ->take(5);
 
         // Total inflow this month
         $totalInflow = WalletTransaction::where('user_id', $user->id)
@@ -65,6 +67,7 @@ class ExpenseController extends Controller
             ->where('type', 'credit')
             ->whereIn('status', ['approved', 'rejected'])
             ->get()
+
             ->map(function($item) {
                 $item->status_label = $item->status === 'approved' ? 'CLEARED' : 'REJECTED';
                 return $item;
@@ -226,7 +229,7 @@ public function expenseHistory()
         ->whereMonth('expense_date', now()->month)
         ->whereYear('expense_date', now()->year)
         ->latest('expense_date')
-        ->paginate(15);
+        ->paginate(10);
 
     return view('manager.history.expenses', compact('expenses'));
 }
@@ -239,7 +242,7 @@ public function topupHistory()
         ->whereMonth('created_at', now()->month)
         ->whereYear('created_at', now()->year)
         ->latest()
-        ->paginate(15);
+        ->paginate(10);
 
     return view('manager.history.topups', compact('topups'));
 }
@@ -253,7 +256,7 @@ public function expenseOverview(Request $request)
         ->whereMonth('expense_date', $date->month)
         ->whereYear('expense_date', $date->year)
         ->latest('expense_date')
-        ->paginate(15); // Use paginate instead of get()
+        ->paginate(10); // Use paginate instead of get()
 
     return view('manager.my-expenses', compact('expenses'));
 }

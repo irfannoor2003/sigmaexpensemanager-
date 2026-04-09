@@ -26,7 +26,7 @@ class HRController extends Controller
     $moneyRequests = WalletRequest::where('status', 'pending')->with('user')->latest()->get();
 
     // Live Logs (recent expenses)
-    $liveLogs = Expense::with(['user', 'category'])->latest()->take(15)->get();
+    $liveLogs = Expense::with(['user', 'category'])->latest()->take(5)->get();
 
     // Totals for the Top Cards (Month-to-Date)
     $totalSpentMonth = Expense::where('status', 'approved')
@@ -247,7 +247,7 @@ public function expenseHistory(Request $request)
         $query->where('title', 'like', '%' . $request->search . '%');
     }
 
-    $expenses = $query->latest('expense_date')->paginate(20)->withQueryString();
+    $expenses = $query->latest('expense_date')->paginate(10)->withQueryString();
 
     return view('hr.history.expenses', compact('expenses'));
 }
