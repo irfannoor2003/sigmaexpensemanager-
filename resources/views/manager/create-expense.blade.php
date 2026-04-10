@@ -65,11 +65,13 @@
                         <select name="category_id" required
                             class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1a1a1a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ea258e]/20 focus:border-[#ea258e] outline-none appearance-none transition-all cursor-pointer">
 
-                            <option value="" disabled selected class="dark:bg-black dark:text-gray-400">Select
-                                Category</option>
+                            <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>
+                                Select Category
+                            </option>
 
                             @foreach ($categories as $cat)
                                 <option value="{{ $cat->id }}"
+                                    {{ old('category_id') == $cat->id ? 'selected' : '' }}
                                     class="bg-white text-black dark:bg-[#1a1a1a] dark:text-white py-2">
                                     {{ $cat->name }}
                                 </option>
@@ -84,7 +86,8 @@
                         </label>
                         <input type="text" id="title-field" name="title" required
                             onkeyup="aiSuggestLive(this.value, 'title-field')" placeholder="Fuel"
-                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none pr-12">
+                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none pr-12"
+                            value="{{ old('title') }}">
                         <button type="button" onclick="startDictation('title-field')"
                             class="absolute right-3 top-[50px] -translate-y-1/2 h-5 w-5 flex items-center justify-center bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-all shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
@@ -104,7 +107,8 @@
                             Amount (Rs.)
                         </label>
                         <input type="number" name="amount" required placeholder="0.00"
-                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none">
+                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none"
+                            value="{{ old('amount') }}">
                     </div>
 
                     {{-- Date --}}
@@ -112,8 +116,13 @@
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
                             Transaction Date
                         </label>
-                        <input type="date" name="expense_date" value="{{ date('Y-m-d') }}" required
-                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none">
+                        <input type="date" name="expense_date" value="{{ old('expense_date', date('Y-m-d')) }}"
+                            required
+                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10
+    bg-white dark:bg-black/20
+    text-gray-900 dark:text-white
+    focus:ring-2 focus:ring-indigo-500/20 outline-none
+    [color-scheme:light] dark:[color-scheme:dark]">
                     </div>
 
                     {{-- Remarks with Voice --}}
@@ -121,8 +130,9 @@
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
                             Remarks
                         </label>
-                        <textarea id="remarks-area" name="remarks" rows="3" placeholder="Optional notes..."
-                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none pr-12"></textarea>
+                        <textarea id="remarks-area" name="remarks" rows="3"
+    placeholder="Optional notes..."
+    class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none pr-12">{{ old('remarks') }}</textarea>
                         <button type="button" onclick="startDictation('remarks-area')"
                             class="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-all shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
@@ -141,8 +151,23 @@
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
                             Proof of Purchase
                         </label>
-                        <input type="file" name="image" required
-                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none">
+
+                        <div class="flex gap-3">
+                            <!-- Upload -->
+                            <input type="file" id="fileInput" name="image" accept="image/*"
+                                class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none"
+                                required>
+
+                            <!-- 📸 Capture Button -->
+                            <button type="button" onclick="openCamera()"
+                                class="px-4 py-3 bg-pink-500 text-white rounded-2xl hover:bg-pink-600 transition shadow-md flex items-center justify-center">
+                                📸
+                            </button>
+
+                        </div>
+                        @error('image')
+                            <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     {{-- Button --}}
@@ -155,6 +180,22 @@
             </div>
         </div>
     </div>
+    <dialog id="cameraModal" class="p-0 rounded-3xl bg-black/80 backdrop-blur-md border border-white/10">
+
+        <div class="p-5 w-[90vw] max-w-md text-center">
+            <video id="camera" autoplay class="w-full rounded-2xl mb-4"></video>
+
+            <div class="flex gap-3">
+                <button onclick="capturePhoto()" class="flex-1 py-3 bg-pink-500 text-white rounded-xl font-bold">
+                    Capture
+                </button>
+
+                <button onclick="closeCamera()" class="flex-1 py-3 bg-gray-300 dark:bg-gray-700 rounded-xl">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </dialog>
 
     {{-- Voice Dictation Script --}}
     <script>
@@ -209,4 +250,57 @@
         const timerInterval = setInterval(updateTimer, 1000);
         updateTimer();
     </script>
+
+    <script>
+        let stream;
+
+        async function openCamera() {
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('camera');
+
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: true
+                });
+                video.srcObject = stream;
+                modal.showModal();
+            } catch (err) {
+                alert("Camera access denied or not supported.");
+            }
+        }
+
+        function closeCamera() {
+            const modal = document.getElementById('cameraModal');
+            modal.close();
+
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        }
+
+        function capturePhoto() {
+            const video = document.getElementById('camera');
+            const canvas = document.createElement('canvas');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+
+            canvas.toBlob(blob => {
+                const file = new File([blob], "capture.jpg", {
+                    type: "image/jpeg"
+                });
+
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+
+                document.getElementById('fileInput').files = dataTransfer.files;
+
+                closeCamera();
+            }, 'image/jpeg');
+        }
+    </script>
+
 </x-app-layout>

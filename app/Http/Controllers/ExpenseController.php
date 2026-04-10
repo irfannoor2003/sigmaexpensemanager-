@@ -26,6 +26,12 @@ class ExpenseController extends Controller
         ->take(5)
         ->get();
 
+        $totalLogs = Expense::where('user_id', $user->id)->count();
+
+        $recentCount = Expense::where('user_id', $user->id)
+    ->whereMonth('expense_date', now()->month)
+    ->count();
+
         // Approved self-requested top-ups
         $approvedRequests = WalletTransaction::where('user_id', $user->id)
             ->where('type', 'credit')
@@ -91,7 +97,7 @@ class ExpenseController extends Controller
 
         return view('manager.dashboard', compact(
             'recent', 'approvedRequests', 'hrManualCredits', 'totalInflow', 'totalSpentMonth',
-            'rejectedRequests', 'months', 'chartData', 'topUpLogs'
+            'rejectedRequests', 'months', 'chartData', 'topUpLogs','totalLogs','recentCount',
         ));
     }
 
@@ -139,9 +145,14 @@ class ExpenseController extends Controller
     }
 
     // 3. BALANCE CHECK
-    if ($user->wallet < $request->amount) {
-        return back()->withInput()->with('error', '⚠️ Insufficient wallet balance!');
-    }
+  if ($user->wallet < $request->amount) {
+    return redirect()
+        ->route('manager.dashboard')
+        ->with('error', '⚠️ Insufficient balance! Please request funds.')
+        ->with('openRequestModal', true)
+        ->with('requestedAmount', $request->amount)
+        ->with('shortage', $request->amount - $user->wallet);
+}
 
     try {
         DB::transaction(function () use ($request, $user, $expenseDate) {
@@ -249,15 +260,40 @@ public function topupHistory()
 public function expenseOverview(Request $request)
 {
     $user = auth()->user();
-    $selectedMonth = $request->get('month', now()->format('Y-m'));
-    $date = \Carbon\Carbon::parse($selectedMonth);
 
+    $selectedMonth = $request->get('month', now()->format('Y-m'));
+    $date = Carbon::parse($selectedMonth);
+
+    // 🔥 FULL DATA (for stats + chart)
+    $allExpenses = Expense::where('user_id', $user->id)
+        ->whereMonth('expense_date', $date->month)
+        ->whereYear('expense_date', $date->year)
+        ->orderBy('expense_date', 'asc')
+        ->get();
+
+    // 📄 PAGINATED DATA (for table only)
     $expenses = Expense::where('user_id', $user->id)
         ->whereMonth('expense_date', $date->month)
         ->whereYear('expense_date', $date->year)
         ->latest('expense_date')
-        ->paginate(10); // Use paginate instead of get()
+        ->paginate(10);
 
-    return view('manager.my-expenses', compact('expenses'));
+    // 💰 TOTAL SPEND (MONTH)
+    $totalSpend = $allExpenses->sum('amount');
+
+    // 📊 TOTAL LOGS
+    $totalLogs = $allExpenses->count();
+
+    // 📈 DAILY AVERAGE
+    $daysInMonth = $date->daysInMonth;
+    $averagePerDay = $daysInMonth > 0 ? $totalSpend / $daysInMonth : 0;
+
+    return view('manager.my-expenses', compact(
+        'expenses',
+        'allExpenses',
+        'totalSpend',
+        'totalLogs',
+        'averagePerDay'
+    ));
 }
 }

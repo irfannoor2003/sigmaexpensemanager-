@@ -138,7 +138,7 @@
                             </div>
                             <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Recent Entries</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ count($recent) }}</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $recentCount }}</h3>
                     </div>
                 </div>
             </div>
@@ -378,10 +378,28 @@
                 </div>
 
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">Reason
-                        / Note</label>
-                    <textarea name="remarks" rows="3" placeholder="Why do you need more funds?"
-                        class="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl px-4 py-3 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition"></textarea>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">
+                        Reason / Note
+                    </label>
+
+                    <div class="relative">
+                        <textarea id="speechText" name="remarks" rows="3" placeholder="Why do you need more funds?"
+                            class="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl px-4 py-3 pr-12 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition"></textarea>
+
+                        <!-- 🎤 Mic Button -->
+                        <button type="button" id="micBtn"
+                            class="absolute right-3 top-3 p-2 rounded-md bg-pink-500/70 text-pink-500 hover:bg-pink-500 text-white transition ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <line x1="12" y1="19" x2="12" y2="23" />
+                                <line x1="8" y1="23" x2="16" y2="23" />
+                            </svg>
+                        </button>
+
+                    </div>
                 </div>
 
                 <button type="submit"
@@ -482,4 +500,76 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            let shouldOpen = "{{ session('openRequestModal') }}";
+
+            if (shouldOpen) {
+                const modal = document.getElementById('requestModal');
+
+                if (modal) {
+                    // Small delay ensures DOM is fully ready
+                    setTimeout(() => {
+                        modal.showModal();
+
+                        // Autofill shortage amount
+                        let amountInput = modal.querySelector('input[name="amount"]');
+                        if (amountInput) {
+                            amountInput.value = "{{ session('shortage') }}";
+                            amountInput.focus();
+                        }
+                    }, 300);
+                }
+            }
+
+        });
+    </script>
+    <script>
+        const micBtn = document.getElementById('micBtn');
+        const textArea = document.getElementById('speechText');
+
+        let recognition;
+        let isListening = false;
+
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onresult = function(event) {
+                let transcript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+
+                textArea.value = transcript;
+            };
+
+            recognition.onerror = function() {
+                stopListening();
+            };
+        } else {
+            micBtn.style.display = 'none'; // hide if not supported
+        }
+
+        micBtn.addEventListener('click', function() {
+            if (!recognition) return;
+
+            if (!isListening) {
+                recognition.start();
+                isListening = true;
+                micBtn.classList.add('bg-pink-500', 'text-white');
+            } else {
+                stopListening();
+            }
+        });
+
+        function stopListening() {
+            recognition.stop();
+            isListening = false;
+            micBtn.classList.remove('bg-pink-500', 'text-white');
+        }
+    </script>
 </x-app-layout>

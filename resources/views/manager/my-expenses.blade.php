@@ -92,7 +92,7 @@
                         <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Total Logs</p>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
-                        {{ $expenses->count() }}
+                         {{ $totalLogs }}
                         <span class="text-xs font-medium text-gray-400 ml-1">Bills</span>
                     </h3>
                 </div>
@@ -111,7 +111,7 @@
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
                         <span class="text-lg font-semibold text-gray-400">Rs.</span>
-                        {{ number_format($expenses->sum('amount')) }}
+                        {{ number_format($totalSpend) }}
                     </h3>
                 </div>
 
@@ -130,7 +130,7 @@
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
                         <span class="text-lg font-semibold text-gray-400">Rs.</span>
-                        {{ $expenses->count() > 0 ? number_format($expenses->sum('amount') / $expenses->count()) : 0 }}
+                      {{ $totalLogs > 0 ? number_format($totalSpend / $totalLogs) : 0 }}
                     </h3>
                 </div>
 
@@ -259,6 +259,12 @@
                     </div>
                 @endforelse
             </div>
+            {{-- 4. Footer Pagination --}}
+            @if (method_exists($expenses, 'links'))
+                <div class="mt-8 pb-12">
+                    {{ $expenses->links() }}
+                </div>
+            @endif
         </div>
     </div>
 
