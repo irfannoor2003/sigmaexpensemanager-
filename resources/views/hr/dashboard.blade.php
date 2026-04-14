@@ -86,116 +86,149 @@
             </div>
 
             {{-- Stats Grid --}}
-            {{-- Stats Grid --}}
-<div x-data="{ view: 'month' }" class="space-y-6">
+            <div x-data="{ view: 'month' }" class="space-y-6 ">
 
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-        {{-- View History Button --}}
-        <a href="{{ route('hr.financial-history') }}"
-           class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-all shadow-sm group">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform">
-                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                <path d="M3 3v5h5" />
-                <path d="m12 7v5l4 2" />
-            </svg>
-            Full Financial History
-        </a>
+               <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 mb-4">
 
-        {{-- Month/Year Toggle --}}
-        <div class="inline-flex p-1 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl shadow-sm">
-            <button type="button" @click="view = 'month'"
-                :class="view === 'month' ? 'bg-white dark:bg-white/10 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700'"
-                class="px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer">
-                Monthly
-            </button>
-            <button type="button" @click="view = 'year'"
-                :class="view === 'year' ? 'bg-white dark:bg-white/10 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700'"
-                class="px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer">
-                Yearly
-            </button>
-        </div>
-    </div>
+    {{-- View History Button --}}
+    <a href="{{ route('hr.financial-history') }}"
+        class="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-all shadow-sm group">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" class="group-hover:scale-110 transition-transform">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+            <path d="m12 7v5l4 2" />
+        </svg>
+        Full Financial History
+    </a>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {{-- Total Approved Card --}}
-        <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
-                        Total Amount Approved
-                    </p>
-                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2" x-show="view === 'month'">
-                        Rs. {{ number_format($totalAddedMonth) }}
-                    </h2>
-                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2" x-show="view === 'year'" x-cloak>
-                        Rs. {{ number_format($totalAddedYear) }}
-                    </h2>
-                </div>
-                <div class="p-3 bg-emerald-500/10 text-emerald-500 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" />
-                    </svg>
-                </div>
-            </div>
-            <div class="mt-3 inline-flex items-center text-[10px] text-emerald-500 font-bold uppercase">
-                <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="18 15 12 9 6 15" />
-                </svg>
-                <span x-text="view === 'month' ? 'Approved (Month)' : 'Approved (Year)'"></span>
-            </div>
-        </div>
+    {{-- Month/Year Toggle --}}
+    <div
+        class="w-full md:w-auto inline-flex justify-center p-1 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl shadow-sm">
 
-        {{-- Total Spent Card --}}
-        <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
-                        Total Spent
-                    </p>
-                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2" x-show="view === 'month'">
-                        Rs. {{ number_format($totalSpentMonth) }}
-                    </h2>
-                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2" x-show="view === 'year'" x-cloak>
-                        Rs. {{ number_format($totalSpentYear) }}
-                    </h2>
-                </div>
-                <div class="p-3 bg-pink-500/10 text-pink-500 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
-                        <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
-                    </svg>
-                </div>
-            </div>
-            <div class="mt-3 inline-flex items-center text-[10px] text-pink-500 font-bold uppercase">
-                <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9" />
-                </svg>
-                <span x-text="view === 'month' ? 'Spent (Month)' : 'Spent (Year)'"></span>
-            </div>
-        </div>
+        <button type="button" @click="view = 'month'"
+            :class="view === 'month'
+                ? 'bg-white dark:bg-white/10 shadow-sm text-gray-900 dark:text-white'
+                : 'text-gray-500 hover:text-gray-700'"
+            class="w-1/2 md:w-auto px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer">
+            Monthly
+        </button>
 
-        {{-- Pending Requests Card --}}
-        <div class="p-6 rounded-3xl bg-pink-500 shadow-lg shadow-pink-500/20">
-            <div class="flex justify-between items-start text-white">
-                <div>
-                    <p class="text-[10px] uppercase tracking-widest text-white/80 font-bold">Awaiting Funding</p>
-                    <h2 class="text-3xl font-bold mt-2">{{ $moneyRequests->count() }} Requests</h2>
-                </div>
-                <div class="p-3 bg-white/20 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                        <line x1="12" x2="12" y1="9" y2="13" />
-                        <line x1="12" x2="12.01" y1="17" y2="17" />
-                    </svg>
-                </div>
-            </div>
-            <div class="mt-3 inline-flex items-center text-[10px] text-white font-bold uppercase bg-white/20 px-2 py-0.5 rounded-full">
-                Action Required
-            </div>
-        </div>
+        <button type="button" @click="view = 'year'"
+            :class="view === 'year'
+                ? 'bg-white dark:bg-white/10 shadow-sm text-gray-900 dark:text-white'
+                : 'text-gray-500 hover:text-gray-700'"
+            class="w-1/2 md:w-auto px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer">
+            Yearly
+        </button>
 
     </div>
 </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {{-- Total Approved Card --}}
+                    <div
+                        class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p
+                                    class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
+                                    Total Amount Approved
+                                </p>
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
+                                    x-show="view === 'month'">
+                                    Rs. {{ number_format($totalAddedMonth) }}
+                                </h2>
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
+                                    x-show="view === 'year'" x-cloak>
+                                    Rs. {{ number_format($totalAddedYear) }}
+                                </h2>
+                            </div>
+                            <div class="p-3 bg-emerald-500/10 text-emerald-500 rounded-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="20" height="14" x="2" y="5" rx="2" />
+                                    <line x1="2" x2="22" y1="10" y2="10" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="mt-3 inline-flex items-center text-[10px] text-emerald-500 font-bold uppercase">
+                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="18 15 12 9 6 15" />
+                            </svg>
+                            <span x-text="view === 'month' ? 'Approved (Month)' : 'Approved (Year)'"></span>
+                        </div>
+                    </div>
+
+                    {{-- Total Spent Card --}}
+                    <div
+                        class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p
+                                    class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
+                                    Total Spent
+                                </p>
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
+                                    x-show="view === 'month'">
+                                    Rs. {{ number_format($totalSpentMonth) }}
+                                </h2>
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
+                                    x-show="view === 'year'" x-cloak>
+                                    Rs. {{ number_format($totalSpentYear) }}
+                                </h2>
+                            </div>
+                            <div class="p-3 bg-pink-500/10 text-pink-500 rounded-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+                                    <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="mt-3 inline-flex items-center text-[10px] text-pink-500 font-bold uppercase">
+                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                            <span x-text="view === 'month' ? 'Spent (Month)' : 'Spent (Year)'"></span>
+                        </div>
+                    </div>
+
+                    {{-- Pending Requests Card --}}
+                    <div class="p-6 rounded-3xl bg-pink-500 shadow-lg shadow-pink-500/20">
+                        <div class="flex justify-between items-start text-white">
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-white/80 font-bold">Awaiting
+                                    Funding</p>
+                                <h2 class="text-3xl font-bold mt-2">{{ $moneyRequests->count() }} Requests</h2>
+                            </div>
+                            <div class="p-3 bg-white/20 rounded-2xl">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                    <line x1="12" x2="12" y1="9" y2="13" />
+                                    <line x1="12" x2="12.01" y1="17" y2="17" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-3 inline-flex items-center text-[10px] text-white font-bold uppercase bg-white/20 px-2 py-0.5 rounded-full">
+                            Action Required
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
 
@@ -460,8 +493,18 @@
         [x-cloak] {
             display: none !important;
         }
+
     </style>
 
+<style>
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+</style>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 
@@ -551,5 +594,17 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        document.querySelectorAll('input[type="date"], input[type="month"]').forEach(input => {
+    input.addEventListener('click', () => {
+        if (input.showPicker) {
+            input.showPicker(); // Chrome/Edge modern
+        } else {
+            input.focus(); // fallback
+        }
+    });
+});
     </script>
 </x-app-layout>

@@ -8,11 +8,10 @@
                 <div class="flex items-center gap-2 mb-1">
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span
-                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">System
-                        Live</span>
+                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">{{__('app.system_live')}}</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Management Oversight</h1>
-                <p class="text-gray-500 dark:text-gray-400 text-sm">Sigma Engineering Services • Financial Year 2026</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ __('app.manage_expense') }}</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">{{__('app.sigmaadmindash')}}</p>
             </div>
         </div>
 

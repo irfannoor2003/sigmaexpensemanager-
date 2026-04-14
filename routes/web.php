@@ -7,6 +7,19 @@ use App\Http\Controllers\ExpenseController; // ✅ Added this import
 use App\Models\Expense;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+
+Route::get('/lang/{locale}', function ($locale) {
+
+    if (!in_array($locale, ['en', 'ur'])) {
+        abort(400);
+    }
+
+    Session::put('locale', $locale);
+
+    return redirect()->back();
+})->name('lang.switch');
 
 Route::get('/', function () {
 

@@ -23,7 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => RoleMiddleware::class,
             'check.deadline' => \App\Http\Middleware\CheckExpenseDeadline::class, // Add this
         ]);
-
+      $middleware->web(append: [
+        \App\Http\Middleware\SetLocale::class,
+    ]);
     })
 
     ->withExceptions(function (Exceptions $exceptions): void {

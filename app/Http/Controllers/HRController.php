@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\ExpensesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
+use App\Models\ExpenseCategory;
 
 class HRController extends Controller
 {
@@ -203,53 +204,82 @@ class HRController extends Controller
     /**
      * Export to Excel
      */
-    public function exportExcel(Request $request)
+ public function exportExcel(Request $request)
 {
     return Excel::download(
         new ExpensesExport(
             $request->month,
             $request->status,
             $request->user_id,
-            $request->search
+            $request->search,
+            $request->category_id // ⭐ ADD THIS
         ),
         'expenses-' . ($request->month ?? now()->format('Y-m')) . '.xlsx'
     );
 }
-
 public function expenseHistory(Request $request)
 {
+    // 1. Build the base query with all shared filters
     $query = Expense::with(['user', 'category']);
 
-    // ✅ Handle month input (YYYY-MM)
+    // Date Filter (Default to current month)
     if ($request->filled('month')) {
         [$year, $month] = explode('-', $request->month);
-
         $query->whereYear('expense_date', $year)
               ->whereMonth('expense_date', $month);
     } else {
-        // Default = current month
         $query->whereMonth('expense_date', now()->month)
               ->whereYear('expense_date', now()->year);
     }
 
-    // ✅ Optional: filter by status
+    // Status Filter
     if ($request->filled('status')) {
         $query->where('status', $request->status);
     }
 
-    // ✅ Optional: filter by user (manager)
+    // User Filter
     if ($request->filled('user_id')) {
         $query->where('user_id', $request->user_id);
     }
 
-    // ✅ Optional: search by title
+    // Search Filter
     if ($request->filled('search')) {
         $query->where('title', 'like', '%' . $request->search . '%');
     }
 
-    $expenses = $query->latest('expense_date')->paginate(10)->withQueryString();
+    // Category Filter
+    if ($request->filled('category_id')) {
+        $query->where('category_id', $request->category_id);
+    }
 
-    return view('hr.history.expenses', compact('expenses'));
+    // 2. Clone the query for the CHART (before pagination)
+    $categoryStats = (clone $query)
+        ->selectRaw('category_id, SUM(amount) as total')
+        ->groupBy('category_id')
+        ->with('category')
+        ->get();
+
+    $labels = $categoryStats->map(fn ($i) => $i->category->name ?? 'Unknown');
+    $values = $categoryStats->pluck('total');
+
+    // Calculate total for the card (all pages combined)
+    $totalFilteredAmount = (clone $query)->sum('amount');
+
+    // 3. Get paginated results for the TABLE
+    $expenses = $query->latest('expense_date')
+        ->paginate(15)
+        ->withQueryString();
+
+    // 4. Get categories for the dropdown
+    $categories = ExpenseCategory::orderBy('name')->get();
+
+    return view('hr.history.expenses', compact(
+        'expenses',
+        'labels',
+        'values',
+        'categories',
+        'totalFilteredAmount'
+    ));
 }
 
 public function financialHistory(Request $request)

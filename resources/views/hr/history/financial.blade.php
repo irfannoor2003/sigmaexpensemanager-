@@ -25,23 +25,33 @@
                     <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Reviewing monthly funding performance for {{ $selectedYear }}.</p>
                 </div>
 
+
                 {{-- Year Filter --}}
-                <div class="flex items-center gap-4">
-                    <form action="{{ route('hr.financial-history') }}" method="GET"
-                          class="flex items-center gap-2 bg-white dark:bg-white/5 p-1.5 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm">
-                        <div class="pl-2 text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
-                            </svg>
-                        </div>
-                        <select name="year" onchange="this.form.submit()"
-                                class="bg-transparent border-none text-xs font-bold dark:text-gray-300 focus:ring-0 cursor-pointer pr-8">
-                            @for($y = now()->year; $y >= 2023; $y--)
-                                <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }} class="dark:bg-gray-900">Year {{ $y }}</option>
-                            @endfor
-                        </select>
-                    </form>
-                </div>
+<div class="w-full lg:w-auto">
+    <form action="{{ route('hr.financial-history') }}" method="GET"
+        class="w-full lg:w-64 flex items-center gap-2 bg-white dark:bg-white/5 p-1.5 rounded-xl border border-gray-200 dark:border-white/10 shadow-sm">
+
+        <div class="pl-2 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="18" height="18" x="3" y="4" rx="2"/>
+                <line x1="16" x2="16" y1="2" y2="6"/>
+                <line x1="8" x2="8" y1="2" y2="6"/>
+                <line x1="3" x2="21" y1="10" y2="10"/>
+            </svg>
+        </div>
+
+        <select name="year" onchange="this.form.submit()"
+            class="w-full bg-transparent border-none text-xs font-bold dark:text-gray-300 focus:ring-0 cursor-pointer pr-8">
+
+            @for($y = now()->year; $y >= 2023; $y--)
+                <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>
+                    Year {{ $y }}
+                </option>
+            @endfor
+
+        </select>
+    </form>
+</div>
             </div>
 
             {{-- Summary Stats Section --}}
