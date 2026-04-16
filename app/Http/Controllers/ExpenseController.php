@@ -82,18 +82,22 @@ class ExpenseController extends Controller
 
         // Prepare chart data for last 6 months
         $months = [];
-        $chartData = [];
-        for ($i = 5; $i >= 0; $i--) {
-            $month = Carbon::now()->subMonths($i);
-            $months[] = $month->format('M');
+$chartData = [];
 
-            $spent = Expense::where('user_id', $user->id)
-                ->whereMonth('expense_date', $month->month)
-                ->whereYear('expense_date', $month->year)
-                ->sum('amount');
+$langMonths = __('app.months');
 
-            $chartData[] = $spent;
-        }
+for ($i = 5; $i >= 0; $i--) {
+    $month = Carbon::now()->subMonths($i);
+
+    $months[] = $langMonths[$month->month]; // 👈 THIS FIX
+
+    $spent = Expense::where('user_id', $user->id)
+        ->whereMonth('expense_date', $month->month)
+        ->whereYear('expense_date', $month->year)
+        ->sum('amount');
+
+    $chartData[] = $spent;
+}
 
         return view('manager.dashboard', compact(
             'recent', 'approvedRequests', 'hrManualCredits', 'totalInflow', 'totalSpentMonth',

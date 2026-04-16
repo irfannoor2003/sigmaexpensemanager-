@@ -30,7 +30,8 @@ class AdminController extends Controller
         $pin = implode('', $request->pin);
 
         $user = User::create([
-            'name' => $request->name,
+           'name' => $request->name,
+    'name_ur' => $request->name_ur,
             'role' => $request->role,
             'pin'  => Hash::make($pin),
         ]);
@@ -49,12 +50,14 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+'name_ur' => 'nullable|string|max:255',
             'role' => 'required|in:admin,hr,expense_manager',
             'pin'  => 'nullable|array|size:5',
             'pin.*'=> 'nullable|digits:1',
         ]);
 
         $user->name = $request->name;
+        $user->name_ur = $request->name_ur;
         $user->role = $request->role;
 
         $pinArray = $request->pin ?? [];
@@ -104,10 +107,11 @@ if (count($filteredPin) === 5) {
     // --- Dynamic Cash Flow Data based on timeframe ---
     $monthlyLabels = [];
     $monthlyData = [];
+    Carbon::setLocale(app()->getLocale());
 
     for ($i = $monthsCount - 1; $i >= 0; $i--) {
         $date = Carbon::now()->subMonths($i);
-        $monthlyLabels[] = $date->format('M');
+        $monthlyLabels[] = $date->translatedFormat('M');
 
         $monthlyData[] = $expenses->filter(function ($expense) use ($date) {
             $expenseDate = Carbon::parse($expense->expense_date);
@@ -171,7 +175,20 @@ public function analytics(Request $request)
         ->pluck('total', 'month')
         ->all();
 
-    $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    $months = [
+    __('app.Jan'),
+    __('app.Feb'),
+    __('app.Mar'),
+    __('app.Apr'),
+    __('app.May'),
+    __('app.Jun'),
+    __('app.Jul'),
+    __('app.Aug'),
+    __('app.Sep'),
+    __('app.Oct'),
+    __('app.Nov'),
+    __('app.Dec'),
+];
     $creditsData = [];
     $debitsData = [];
 

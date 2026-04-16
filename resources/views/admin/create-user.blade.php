@@ -19,8 +19,8 @@
                             d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                     </svg>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">New Identity</h1>
-                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Sigma Engineering Access Control</p>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{__('app.ACCESS LEVEL')}}</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{{__('app.Sigma Engineering Access Control')}}</p>
             </div>
 
             <div
@@ -30,27 +30,25 @@
 
                     <div>
                         <label
-                            class="block text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 ml-1">Legal
-                            Name</label>
-                        <input type="text" name="name" required placeholder="Hammad Malik"
+                            class="block text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 ml-1">{{__('app.LEGAL NAME')}}</label>
+                        <input type="text" name="name" required placeholder="{{ __('app.Hammad Malik') }}"
                             class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none">
                     </div>
 
                     <div>
                         <label
                             class="block text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 ml-1">
-                            Access Level
+                             {{__('app.ACCESS LEVEL')}}
                         </label>
                         <div class="relative">
                             <select name="role" required
                                 class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white appearance-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all">
 
                                 {{-- We apply bg-white and text-black to the options --}}
-                                <option value="" disabled selected class="bg-white text-black">Select
-                                    Authorization</option>
-                                <option value="admin" class="bg-white text-black">Administrator</option>
-                                <option value="hr" class="bg-white text-black">HR</option>
-                                <option value="expense_manager" class="bg-white text-black">Expense Manager</option>
+                                <option value="" disabled selected class="bg-white text-black">{{__('app.Select Authorization')}}</option>
+                                <option value="admin" class="bg-white text-black">{{__('app.Administrator')}}</option>
+                                <option value="hr" class="bg-white text-black">{{__('app.HR')}}</option>
+                                <option value="expense_manager" class="bg-white text-black">{{__('app.Expense Manager')}}</option>
 
                             </select>
 
@@ -67,7 +65,7 @@
                     <div>
                         <label
                             class="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 block ml-1">
-                            Security PIN
+                            {{__('app.SECURITY PIN')}}
                         </label>
 
                         <div class="relative">
@@ -107,7 +105,7 @@
                     <button type="submit"
                         class="w-full py-4 bg-gradient-to-r from-pink-400 to-pink-400
                                 dark:from-pink-400 dark:to-[#ff00cc] text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
-                        Initialize Account
+                        {{__('app.Initialize Account')}}
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 7l5 5m0 0l-5 5m5-5H6" />

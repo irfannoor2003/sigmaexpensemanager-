@@ -16,14 +16,14 @@
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span
                         class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">
-                        Live Sync
+                        {{__('app.Live Sync')}}
                     </span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                    Financial Intelligence
+                    {{__('app.Financial Intelligence')}}
                 </h1>
                 <p class="text-gray-500 dark:text-gray-400 text-sm">
-                    HR Credits vs Manager Disbursements • FY {{ $year }}
+                   {{__('app.HR Credits vs Manager Disbursements', ['year' => date('Y')])}}
                 </p>
             </div>
 
@@ -34,14 +34,14 @@
                     class="w-full sm:w-auto bg-transparent border-none text-xs font-semibold dark:text-white focus:ring-0 cursor-pointer outline-none appearance-none px-3 py-2 rounded-xl">
                     @foreach (range(date('Y'), date('Y') - 3) as $y)
                         <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }} class="dark:text-black">
-                            Financial Year {{ $y }}
-                        </option>
+    {{ __('app.Financial Year', ['year' => $y]) }}
+</option>
                     @endforeach
                 </select>
 
                 <button
                     class="w-full sm:w-auto px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-pink-500/20">
-                    Sync
+                    {{__('app.SYNC')}}
                 </button>
             </form>
         </div>
@@ -61,12 +61,11 @@
                         </svg>
                     </div>
                     <span
-                        class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Total
-                        Credits By Hr</span>
+                        class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">{{__('app.TOTAL CREDITS BY HR')}}</span>
                 </div>
                 <p class="text-3xl font-bold text-gray-900 dark:text-white font-mono">
                     {{ number_format($totalYearlyCredit) }}</p>
-                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">PKR </p>
+                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">{{__('app.PKR')}} </p>
             </div>
 
             {{-- Manager Debits --}}
@@ -77,12 +76,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                         </svg>
                     </div>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400">Total
-                        Spend By Managers </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400">{{__('app.TOTAL SPEND BY MANAGERS')}} </span>
                 </div>
                 <p class="text-3xl font-bold text-gray-900 dark:text-white font-mono">
                     {{ number_format($totalYearlyDebit) }}</p>
-                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">PKR</p>
+                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">{{__('app.PKR')}}</p>
             </div>
 
             {{-- Net Balance --}}
@@ -96,8 +94,7 @@
                         </svg>
                     </div>
                     <span
-                        class="text-[10px] font-bold uppercase tracking-widest {{ $net >= 0 ? 'text-indigo-600 dark:text-indigo-400' : 'text-rose-600 dark:text-rose-400' }}">Remaining
-                        Balance </span>
+                        class="text-[10px] font-bold uppercase tracking-widest {{ $net >= 0 ? 'text-indigo-600 dark:text-indigo-400' : 'text-rose-600 dark:text-rose-400' }}">{{__('app.REMAINING BALANCE')}} </span>
                 </div>
                 <p
                     class="text-3xl font-bold font-mono {{ $net >= 0 ? 'text-gray-900 dark:text-white' : 'text-rose-500' }}">
@@ -105,7 +102,7 @@
                 <div class="flex items-center gap-2 mt-1">
                     <span
                         class="flex h-1.5 w-1.5 rounded-full {{ $net >= 0 ? 'bg-emerald-500' : 'bg-rose-500' }} animate-pulse"></span>
-                    <p class="text-xs text-gray-400 font-semibold uppercase tracking-widest">PKR Live Balance</p>
+                    <p class="text-xs text-gray-400 font-semibold uppercase tracking-widest">{{__('app.PKR Live Balance')}}</p>
                 </div>
             </div>
         </div>
@@ -114,20 +111,19 @@
         <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
-                    <h3 class="font-bold text-gray-900 dark:text-white">Monthly Flow (Pkr)</h3>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">Capital Flow
-                        Architecture</p>
+                    <h3 class="font-bold text-gray-900 dark:text-white">{{__('app.Monthly Flow (Pkr)')}}</h3>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">{{__('app.CAPITAL FLOW ARCHITECTURE')}}</p>
                 </div>
                 {{-- Legend --}}
                 <div
                     class="flex items-center gap-6 bg-gray-50 dark:bg-white/5 px-5 py-3 rounded-2xl border border-gray-100 dark:border-white/10">
                     <div class="flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                        <span class="text-[10px] font-bold dark:text-gray-300 uppercase tracking-widest">Credits</span>
+                        <span class="text-[10px] font-bold dark:text-gray-300 uppercase tracking-widest">{{__('app.CREDITS')}}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
-                        <span class="text-[10px] font-bold dark:text-gray-300 uppercase tracking-widest">Debits</span>
+                        <span class="text-[10px] font-bold dark:text-gray-300 uppercase tracking-widest">{{__('app.DEBITS')}}</span>
                     </div>
                 </div>
             </div>

@@ -20,11 +20,11 @@
                     <div class="flex items-center gap-2 mb-1">
                         <span class="flex h-2 w-2 rounded-full bg-pink-500 animate-pulse"></span>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-pink-600 dark:text-pink-400 font-bold">
-                            Analytics & Log
+                            {{__('app.Analytics & Log')}}
                         </span>
                     </div>
                     <h1 class="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white tracking-tighter">
-                        Expense History
+                        {{__('app.Expense History')}}
                     </h1>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <div class="flex items-center gap-4">
                     <div class="px-4 py-2 bg-gray-50 dark:bg-white/5 rounded-2xl">
                         <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">
-                            Total Records:
+                            {{__('app.TOTAL RECORDS')}}:
                             <span class="text-pink-500 ml-1">
                                 {{ method_exists($expenses, 'total') ? $expenses->total() : $expenses->count() }}
                             </span>
@@ -54,12 +54,12 @@
                         <thead>
                             <tr
                                 class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Expense Details
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.Expense Details')}}
                                 </th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Category</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Date (Actual)</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Amount</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px] text-right">Status
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.CATEGORY')}}</th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.Date (Actual)')}}th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.AMOUNT')}}</th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px] text-right">{{__('app.STATUS')}}
                                 </th>
                             </tr>
                         </thead>
@@ -70,29 +70,36 @@
                                         <div class="flex flex-col">
                                             <span
                                                 class="font-bold text-gray-900 dark:text-white group-hover:text-pink-500 transition-colors">{{ $item->title }}</span>
-                                            <span class="text-[10px] text-gray-400 font-mono">Ref:
+                                            <span class="text-[10px] text-gray-400 font-mono">{{__('app.Ref:')}}
                                                 #EXP-{{ str_pad($item->id, 5, '0', STR_PAD_LEFT) }}</span>
                                         </div>
                                     </td>
-                                    <td class="px-8 py-5">
-                                        <span
-                                            class="px-3 py-1 rounded-lg bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-400 text-[10px] font-black uppercase tracking-tight">
-                                            {{ $item->category->name ?? 'General' }}
-                                        </span>
-                                    </td>
+                                 <td class="px-8 py-5">
+    <span
+        class="px-3 py-1 rounded-lg bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-400 text-[10px] font-black uppercase tracking-tight">
+
+        {{ $item->category
+            ? __('app.categories.' . $item->category->name)
+            : __('app.General')
+        }}
+
+    </span>
+</td>
                                     <td class="px-8 py-5 text-gray-500 dark:text-gray-400 text-[11px] font-bold">
                                         {{ $item->expense_date->format('d M, Y') }}
                                     </td>
                                     <td
                                         class="px-8 py-5 font-mono font-black text-pink-600 dark:text-pink-400 text-base">
-                                        -Rs. {{ number_format($item->amount) }}
+                                        -{{__('app.Rs')}}. {{ number_format($item->amount) }}
                                     </td>
                                     <td class="px-8 py-5 text-right">
-                                        <span
-                                            class="inline-flex px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest {{ $item->status === 'approved' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-orange-500/10 text-orange-500' }}">
-                                            {{ $item->status }}
-                                        </span>
-                                    </td>
+    <span
+        class="inline-flex px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest
+        {{ $item->status === 'approved' ? 'bg-emerald-500/10 text-emerald-500' : ($item->status === 'rejected' ? 'bg-rose-500/10 text-rose-500' : 'bg-orange-500/10 text-orange-500') }}">
+
+        {{ __('app.status.' . strtolower($item->status)) }}
+    </span>
+</td>
                                 </tr>
                             @empty
                                 <tr>

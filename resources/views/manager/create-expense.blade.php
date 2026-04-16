@@ -23,11 +23,11 @@
                 </div>
 
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
-                    New Expense
+                    {{__('app.New Expense')}}
                 </h1>
 
                 <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                    Sigma Engineering Access Control
+                    {{__('app.Sigma Engineering Access Control')}}
                 </p>
             </div>
 
@@ -39,8 +39,8 @@
 
                 <div class="flex items-center justify-between relative z-10">
                     <div>
-                        <p class="text-[10px] uppercase tracking-[0.2em] text-pink-500 font-black">Submission Window</p>
-                        <p class="text-xs text-gray-400 mt-0.5">Time left for previous month</p>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-pink-500 font-black">{{__('app.Submission Window')}}</p>
+                        <p class="text-xs text-gray-400 mt-0.5">{{__('app.Time left for previous month')}}</p>
                     </div>
                     <div id="timer"
                         class="text-xl font-mono font-bold text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-4 py-2 rounded-xl shadow-inner border border-white/5">
@@ -58,34 +58,40 @@
                     @csrf
 
                     {{-- Category --}}
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
-                            Expense Category
-                        </label>
-                        <select name="category_id" required
-                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1a1a1a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ea258e]/20 focus:border-[#ea258e] outline-none appearance-none transition-all cursor-pointer">
+                    @php
+    $selectedCategory = old('category_id', request('category_id'));
+@endphp
 
-                            <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>
-                                Select Category
-                            </option>
+<div>
+    <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
+        {{ __('app.Expense Category') }}
+    </label>
 
-                            @foreach ($categories as $cat)
-                                <option value="{{ $cat->id }}"
-                                    {{ old('category_id') == $cat->id ? 'selected' : '' }}
-                                    class="bg-white text-black dark:bg-[#1a1a1a] dark:text-white py-2">
-                                    {{ $cat->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+    <select name="category_id" required
+        class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1a1a1a] text-gray-900 dark:text-white focus:ring-2 focus:ring-[#ea258e]/20 focus:border-[#ea258e] outline-none appearance-none transition-all cursor-pointer">
+
+        <option value="" disabled {{ $selectedCategory ? '' : 'selected' }}>
+            {{ __('app.Select Category') }}
+        </option>
+
+        @foreach ($categories as $cat)
+            <option value="{{ $cat->id }}"
+                {{ $selectedCategory == $cat->id ? 'selected' : '' }}>
+
+                {{ __('app.categories.' . $cat->name) }}
+            </option>
+        @endforeach
+
+    </select>
+</div>
 
                     {{-- Title with Voice --}}
                     <div class="relative">
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
-                            Title
+                            {{__('app.Title')}}
                         </label>
                         <input type="text" id="title-field" name="title" required
-                            onkeyup="aiSuggestLive(this.value, 'title-field')" placeholder="Fuel"
+                            onkeyup="aiSuggestLive(this.value, 'title-field')" placeholder="{{__('app.Fuel')}}"
                             class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none pr-12"
                             value="{{ old('title') }}">
                         <button type="button" onclick="startDictation('title-field')"
@@ -104,7 +110,7 @@
                     {{-- Amount --}}
                     <div>
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
-                            Amount (Rs.)
+                            {{__('app.Amount (Rs.)')}}
                         </label>
                         <input type="number" name="amount" required placeholder="0.00"
                             class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none"
@@ -114,7 +120,7 @@
                     {{-- Date --}}
                     <div>
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
-                            Transaction Date
+                            {{__('app.Transaction Date')}}
                         </label>
                         <input type="date" name="expense_date" value="{{ old('expense_date', date('Y-m-d')) }}"
                             required
@@ -128,10 +134,10 @@
                     {{-- Remarks with Voice --}}
                     <div class="relative">
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
-                            Remarks
+                            {{__('app.Remarks')}}
                         </label>
                         <textarea id="remarks-area" name="remarks" rows="3"
-    placeholder="Optional notes..."
+    placeholder="{{__('app.Optional notes')}}"
     class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500/20 outline-none pr-12">{{ old('remarks') }}</textarea>
                         <button type="button" onclick="startDictation('remarks-area')"
                             class="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 flex items-center justify-center bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-all shadow-md">
@@ -149,7 +155,7 @@
                     {{-- Upload --}}
                     <div>
                         <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
-                            Proof of Purchase
+                            {{__('app.Proof of Purchase')}}
                         </label>
 
                         <div class="flex gap-3">
@@ -173,7 +179,7 @@
                     {{-- Button --}}
                     <button type="submit"
                         class="w-full py-4 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
-                        Submit Expense
+                        {{__('app.Submit Expense')}}
                     </button>
 
                 </form>

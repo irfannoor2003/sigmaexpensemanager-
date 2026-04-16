@@ -10,11 +10,11 @@
                     <div class="flex items-center gap-2 mb-1">
                         <span class="flex h-2 w-2 rounded-full bg-pink-500 animate-pulse"></span>
                         <span class="text-[10px] uppercase tracking-widest text-pink-600 dark:text-pink-400 font-bold">
-                            Manager Dashboard
+                            {{__('app.Manager Dashboard')}}
                         </span>
                     </div>
                     <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
-                        Wallet Overview
+                        {{__('app.Wallet Overview')}}
                     </h1>
                 </div>
 
@@ -25,7 +25,7 @@
                         stroke-linejoin="round">
                         <path d="M12 5v14M5 12h14" />
                     </svg>
-                    Request Top-up
+                    {{__('app.Request Top-up')}}
                 </button>
             </div>
 
@@ -58,11 +58,11 @@
                             <div>
                                 <p
                                     class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
-                                    Current Balance
+                                    {{__('app.Current Balance')}}
                                 </p>
                                 <h2
                                     class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mt-2 tracking-tighter">
-                                    <span class="text-pink-500 text-2xl sm:text-3xl">Rs.</span>
+                                    <span class="text-pink-500 text-2xl sm:text-3xl">{{__('app.Rs')}}</span>
                                     {{ number_format($currentBalance) }}
                                 </h2>
                             </div>
@@ -80,13 +80,19 @@
                         <div class="mt-10">
                             <div class="flex justify-between items-end mb-3">
                                 <div class="space-y-1">
-                                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Remaining
-                                        Balance</p>
-                                    <p class="text-xs font-bold dark:text-white">
-                                        {{ number_format($currentBalance) }} <span
-                                            class="text-gray-500 font-medium">left of</span>
-                                        {{ number_format($totalInflow) }}
-                                    </p>
+                                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{{__('app.Remaining Balance')}}</p>
+                          <p class="text-xs font-bold dark:text-white">
+    @if(app()->getLocale() === 'ur')
+        {{ number_format($totalInflow) }}
+        <span class="text-gray-500 font-medium">میں سے</span>
+        {{ number_format($currentBalance) }}
+        <span class="text-gray-500 font-medium">باقی ہے</span>
+    @else
+        {{ number_format($currentBalance) }}
+        <span class="text-gray-500 font-medium">left of</span>
+        {{ number_format($totalInflow) }}
+    @endif
+</p>
                                 </div>
                                 <span
                                     class="text-xs font-bold {{ str_replace('bg-', 'text-', $barColor) }}">{{ round($remainingPercent) }}%</span>
@@ -111,16 +117,13 @@
                         <div class="flex items-center gap-3 mb-2">
                             <div class="p-2 bg-emerald-500/10 text-emerald-500 rounded-lg">
                                 <!-- PKR Currency SVG -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 4h8a4 4 0 010 8H4v8m8-12l8 8" />
-                                    <!-- This creates a P-like shape with an extra slash for R -->
-                                </svg>
+                                <svg class="w-4 h-4" viewBox="0 0 122.88 98.34" fill="currentColor">
+        <path fill-rule="evenodd" d="M.71,24.6H8.8V0H40q14.7,0,22.74,7.64c4.4,4.19,7,9.86,7.77,17H81.81a.73.73,0,0,1,.71.72v11a.73.73,0,0,1-.71.72H70.15Q67.79,50.36,56.74,56.45L73.72,96V97h-21L38.1,61.65H28.37V97H8.8V37.07H.71A.73.73,0,0,1,0,36.35v-11a.71.71,0,0,1,.71-.72ZM107.86,81.4A4.84,4.84,0,0,0,106,77.76c-1.26-1.12-4.06-2.61-8.39-4.52q-9.57-3.88-13.16-8a15.28,15.28,0,0,1-3.58-10.33,16.56,16.56,0,0,1,5.62-12.82Q92.06,37,101.29,37c6.5,0,11.68,1.68,15.58,5s5.86,7.85,5.86,13.49H107.26q0-7.22-6-7.22a5.54,5.54,0,0,0-4,1.53,5.67,5.67,0,0,0-1.57,4.27,4.52,4.52,0,0,0,1.73,3.47c1.18,1,3.92,2.45,8.27,4.29,6.31,2.34,10.75,5,13.36,7.8s3.9,6.57,3.9,11.12a15.56,15.56,0,0,1-5.95,12.75c-4,3.21-9.18,4.81-15.64,4.81A24.81,24.81,0,0,1,89.82,95.8,19.2,19.2,0,0,1,82,88.71a18.23,18.23,0,0,1-2.8-9.77h14.7c.08,2.68.69,4.72,1.89,6.06s3.11,2,5.82,2c4.14,0,6.23-1.88,6.23-5.63ZM28.37,24.6H50.51q-2.13-8.24-10.68-8.23H28.37V24.6ZM50.42,37.07h-22v8.21H39.49q5.86,0,8.8-3.88a13.79,13.79,0,0,0,2.13-4.33Z"/>
+    </svg>
                             </div>
-                            <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Monthly Spend</p>
+                            <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{{__('app.Monthly Spend')}}</p>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Rs.
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{__('app.Rs')}}
                             {{ number_format($totalSpentMonth) }}</h3>
                     </div>
 
@@ -136,7 +139,7 @@
                                     <path d="M22 4l-11.5 11.5-4.5-4.5" />
                                 </svg>
                             </div>
-                            <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Recent Entries</p>
+                            <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{{__('app.Recent Entries')}}</p>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $recentCount }}</h3>
                     </div>
@@ -154,7 +157,7 @@
                             <path d="M3 3v18h18" />
                             <path d="m19 9-5 5-4-4-3 3" />
                         </svg>
-                        <h3 class="font-bold text-gray-900 dark:text-white text-sm">Spending Velocity</h3>
+                        <h3 class="font-bold text-gray-900 dark:text-white text-sm">{{__('app.Spending Velocity')}}</h3>
                     </div>
                     <div class="h-[250px] w-full">
                         <canvas id="expenseChart"></canvas>
@@ -162,8 +165,7 @@
                 </div>
 
                 <div class="lg:col-span-2 flex flex-col gap-4">
-                    <h3 class="font-bold text-gray-900 dark:text-white text-sm ml-2 uppercase tracking-widest">Quick
-                        Actions</h3>
+                    <h3 class="font-bold text-gray-900 dark:text-white text-sm ml-2 uppercase tracking-widest">{{__('app.Spending Velocity')}}</h3>
                     <a href="{{ route('manager.create-expense') }}"
                         class="flex-1 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-pink-500/50 transition-all group flex flex-col justify-center">
                         <div
@@ -175,7 +177,7 @@
                                 <line x1="12" x2="12" y1="3" y2="15" />
                             </svg>
                         </div>
-                        <p class="text-xs font-bold  dark:text-white uppercase ">Submit New Expense</p>
+                        <p class="text-xs font-bold  dark:text-white uppercase ">{{__('app.Submit New Expense')}}</p>
                     </a>
 
                     <a href="/manager/my-expenses"
@@ -190,7 +192,7 @@
                                 <line x1="16" x2="8" y1="17" y2="17" />
                             </svg>
                         </div>
-                        <p class="text-xs font-bold dark:text-white uppercase tracking-tighter">View Expense History
+                        <p class="text-xs font-bold dark:text-white uppercase tracking-tighter">{{__('app.View Expense History')}}
                         </p>
                     </a>
                 </div>
@@ -204,15 +206,14 @@
                             <path d="M12 20v-6M6 20V10M18 20V4" />
                         </svg>
                         <h3 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-widest">
-                            Transaction Logs</h3>
+                            {{__('app.Transaction Logs')}}</h3>
                     </div>
 
                     {{-- VIEW ALL BUTTON --}}
                     <a href="{{ route('manager.expenses.history') }}"
                         class="group flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/5 hover:bg-pink-500/10 rounded-xl transition-all border border-transparent hover:border-pink-500/30">
                         <span
-                            class="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-pink-500 transition-colors">View
-                            All History</span>
+                            class="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-pink-500 transition-colors">{{__('app.View All History')}}</span>
                         <svg class="text-gray-400 group-hover:text-pink-500 transition-transform group-hover:translate-x-1"
                             width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="3">
@@ -228,14 +229,14 @@
                             <thead>
                                 <tr
                                     class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">Title </th>
-                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">Created Date
+                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">{{__('app.Title')}} </th>
+                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">{{__('app.Created Date')}}
                                     </th>
-                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">Amount</th>
-                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">Actual Date
+                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">{{__('app.AMOUNT')}}</th>
+                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">{{__('app.Actual Date')}}
                                     </th>
                                     <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px] text-right">
-                                        Status</th>
+                                        {{__('app.STATUS')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50 dark:divide-white/5">
@@ -249,18 +250,29 @@
                                             {{ $item->created_at ? $item->created_at->format('d M, Y h:i A') : 'System N/A' }}
                                         </td>
                                         <td class="px-6 py-4 font-mono font-bold text-pink-600 dark:text-pink-400">
-                                            -Rs. {{ number_format($item->amount) }}
+                                            -{{__('app.Rs')}}. {{ number_format($item->amount) }}
                                         </td>
                                         <td class="px-6 py-4 text-gray-400 dark:text-gray-500 text-[10px] font-medium">
                                             {{-- Since it's cast in the Model, just call format directly --}}
                                             {{ $item->expense_date ? $item->expense_date->format('d M, Y') : 'No Date Set' }}
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <span
-                                                class="inline-flex px-2 py-1 rounded-lg text-[9px] font-bold uppercase bg-orange-500/10 text-orange-500">
-                                                {{ strtoupper($item->status) }}
-                                            </span>
-                                        </td>
+    @php
+        $status = strtolower($item->status);
+
+        $statusClasses = [
+            'approved' => 'bg-emerald-500/10 text-emerald-500',
+            'pending' => 'bg-orange-500/10 text-orange-500',
+            'rejected' => 'bg-red-500/10 text-red-500',
+        ];
+    @endphp
+
+    <span
+        class="inline-flex px-2 py-1 rounded-lg text-[9px] font-bold uppercase {{ $statusClasses[$status] ?? 'bg-gray-500/10 text-gray-500' }}">
+
+        {{ __('app.status.' . $status) }}
+    </span>
+</td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -285,16 +297,14 @@
                             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
-                        <h3 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-widest">Top-up
-                            History</h3>
+                        <h3 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-widest">{{__('app.TopupHistory')}}</h3>
                     </div>
 
                     {{-- VIEW ALL BUTTON --}}
                     <a href="{{ route('manager.topup.history') }}"
                         class="group flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/5 hover:bg-emerald-500/10 rounded-xl transition-all border border-transparent hover:border-emerald-500/30">
                         <span
-                            class="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-emerald-500 transition-colors">View
-                            Records</span>
+                            class="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-emerald-500 transition-colors">{{__('app.View Records')}}</span>
                         <svg class="text-gray-400 group-hover:text-emerald-500 transition-transform group-hover:translate-x-1"
                             width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="3">
@@ -310,37 +320,36 @@
                             <thead>
                                 <tr
                                     class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">Topup</th>
-                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">Date</th>
-                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">Amount</th>
+                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">{{__('app.Topup')}}</th>
+                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">{{__('app.DATE')}}</th>
+                                    <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px]">{{__('app.AMOUNT')}}</th>
                                     <th class="px-6 py-4 font-bold tracking-wider uppercase text-[10px] text-right">
-                                        Status</th>
+                                        {{__('app.STATUS')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50 dark:divide-white/5">
                                 @forelse($topUpLogs as $log)
                                     <tr class="group hover:bg-gray-50/50 dark:hover:bg-white/[0.03] transition-all">
-                                        <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Wallet Top-up
+                                        <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">{{__('app.Wallet Top-up')}}
                                         </td>
                                         <td class="px-6 py-4 text-gray-500 dark:text-gray-400 text-[11px] font-medium">
                                             {{ \Carbon\Carbon::parse($log->created_at)->format('d M, Y') }}
                                         </td>
                                         <td
                                             class="px-6 py-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">
-                                            +Rs. {{ number_format($log->amount) }}
+                                            +{{__('app.Rs')}}. {{ number_format($log->amount) }}
                                         </td>
                                         <td class="px-6 py-4 text-right">
                                             <span
                                                 class="inline-flex px-2 py-1 rounded-lg text-[9px] font-bold uppercase bg-emerald-500 text-white">
-                                                CLEARED
+                                                {{__('app.CLEARED')}}
                                             </span>
                                         </td>
 
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="px-6 py-10 text-center text-gray-400 text-xs">No
-                                            top-up records.</td>
+                                        <td colspan="4" class="px-6 py-10 text-center text-gray-400 text-xs">{{__('app.No top-up records.')}}.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -357,7 +366,7 @@
         <div
             class="bg-white dark:bg-[#0f0f0f] w-[90vw] max-w-md p-8 border border-gray-200 dark:border-white/10 shadow-2xl rounded-[2rem]">
             <div class="flex justify-between items-center mb-6 ">
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white uppercase tracking-tighter">Request Funds
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white uppercase tracking-tighter">{{__('app.Request Funds')}}
                 </h3>
                 <button onclick="this.closest('dialog').close()" class="text-gray-400 hover:text-pink-500 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -371,19 +380,18 @@
             <form action="{{ route('manager.request-funds') }}" method="POST" class="space-y-5">
                 @csrf
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">Amount
-                        (Rs.)</label>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">{{__('app.Amount (Rs.)')}}</label>
                     <input type="number" name="amount" required placeholder="0.00"
                         class="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl px-4 py-3 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition">
                 </div>
 
                 <div>
                     <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">
-                        Reason / Note
+                        {{__('app.Reason / Note')}}
                     </label>
 
                     <div class="relative">
-                        <textarea id="speechText" name="remarks" rows="3" placeholder="Why do you need more funds?"
+                        <textarea id="speechText" name="remarks" rows="3" placeholder="{{__('app.WhyDo')}}"
                             class="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl px-4 py-3 pr-12 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition"></textarea>
 
                         <!-- 🎤 Mic Button -->
@@ -404,7 +412,7 @@
 
                 <button type="submit"
                     class="w-full py-4 bg-pink-500 hover:bg-pink-600 text-white font-bold uppercase text-xs tracking-widest rounded-2xl shadow-lg shadow-pink-500/30 transition-all active:scale-95">
-                    Submit Request
+                    {{__('app.Submit Request')}}
                 </button>
             </form>
         </div>
@@ -526,50 +534,66 @@
         });
     </script>
     <script>
-        const micBtn = document.getElementById('micBtn');
-        const textArea = document.getElementById('speechText');
+     document.addEventListener('DOMContentLoaded', function () {
 
-        let recognition;
-        let isListening = false;
+    const micBtn = document.getElementById('micBtn');
+    const textArea = document.getElementById('speechText');
 
-        if ('webkitSpeechRecognition' in window) {
-            recognition = new webkitSpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
+    let recognition;
+    let isListening = false;
 
-            recognition.onresult = function(event) {
-                let transcript = '';
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    transcript += event.results[i][0].transcript;
-                }
+    if (!SpeechRecognition) {
+        micBtn.style.display = 'none';
+        return;
+    }
 
-                textArea.value = transcript;
-            };
+    recognition = new SpeechRecognition();
 
-            recognition.onerror = function() {
-                stopListening();
-            };
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+        isListening = true;
+        micBtn.classList.add('animate-pulse', 'bg-pink-600');
+        micBtn.classList.remove('bg-pink-500/70');
+    };
+
+    recognition.onresult = (event) => {
+        let transcript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+        }
+
+        textArea.value = textArea.value + transcript + ' ';
+        textArea.focus();
+    };
+
+    recognition.onerror = (event) => {
+        console.log("Speech error:", event.error);
+        stopMic();
+    };
+
+    recognition.onend = () => {
+        stopMic();
+    };
+
+    micBtn.addEventListener('click', function () {
+        if (!isListening) {
+            recognition.start();
         } else {
-            micBtn.style.display = 'none'; // hide if not supported
-        }
-
-        micBtn.addEventListener('click', function() {
-            if (!recognition) return;
-
-            if (!isListening) {
-                recognition.start();
-                isListening = true;
-                micBtn.classList.add('bg-pink-500', 'text-white');
-            } else {
-                stopListening();
-            }
-        });
-
-        function stopListening() {
             recognition.stop();
-            isListening = false;
-            micBtn.classList.remove('bg-pink-500', 'text-white');
         }
+    });
+
+    function stopMic() {
+        isListening = false;
+        micBtn.classList.remove('animate-pulse', 'bg-pink-600');
+        micBtn.classList.add('bg-pink-500/70');
+    }
+});
     </script>
 </x-app-layout>

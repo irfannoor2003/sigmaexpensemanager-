@@ -29,11 +29,11 @@
 
             {{-- Title --}}
             <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white mb-2">
-                Sigma Expense <span class="text-pink-600 dark:text-pink-400">Manager</span>
+                {{__('app.Sigma Expense')}} <span class="text-pink-600 dark:text-pink-400">{{__('app.Manager')}}</span>
             </h1>
 
             <p class="text-gray-500 dark:text-gray-400 text-sm mb-8">
-                Please enter your security PIN
+{{__('app.Please enter your security PIN')}}
             </p>
 
             {{-- Form --}}
@@ -52,7 +52,7 @@
             {{-- Footer --}}
             <div class="mt-8 pt-6 border-t border-gray-100 dark:border-white/5">
                 <p class="text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                    © 2026 Sigma Engineering Services
+                    {{__('app.SIGMA ENGINEERING SERVICES')}}
                 </p>
             </div>
         </div>

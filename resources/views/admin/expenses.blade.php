@@ -18,16 +18,16 @@
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span
                         class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">
-                        System Live
+                        {{ __('app.system_live') }}
                     </span>
                 </div>
 
                 <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                    Financial Ledger
+                    {{ __('app.Financial Ledger') }}
                 </h1>
 
                 <p class="text-gray-500 dark:text-gray-400 text-sm">
-                    {{ $allExpenses->count() }} transactions • Sigma Engineering Services
+                    {{ $allExpenses->count() }} {{ __('app.transactions - Sigma Engineering Services') }}
                 </p>
             </div>
 
@@ -60,7 +60,7 @@
                text-white text-[10px] font-bold uppercase tracking-widest
                rounded-xl transition-all shadow-lg shadow-pink-500/20
                hover:scale-[1.02] active:scale-95">
-                    Sync
+                    {{ __('app.SYNC') }}
                 </button>
             </form>
 
@@ -89,12 +89,13 @@
                                 d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                     </div>
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400">Total
-                        Period Outflow</span>
+                    <span
+                        class="text-[10px] font-bold uppercase tracking-widest text-pink-600 dark:text-pink-400">{{ __('app.TOTAL PERIOD OUTFLOW') }}</span>
                 </div>
                 <p class="text-3xl font-bold text-gray-900 dark:text-white font-mono">
                     {{ number_format($allExpenses->sum('amount')) }}</p>
-                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">PKR Disbursed</p>
+                <p class="text-xs text-gray-400 mt-1 font-semibold uppercase tracking-widest">
+                    {{ __('app.PKR DISBURSED') }}</p>
                 <div class="mt-4 h-1 w-full bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                     <div class="h-full bg-pink-500 w-full animate-pulse"></div>
                 </div>
@@ -104,23 +105,27 @@
             <div
                 class="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm flex items-center gap-6">
                 <div class="flex-1 space-y-3">
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Category Split</p>
-                    <div class="space-y-3 max-h-[140px] overflow-y-auto custom-scrollbar pr-2">
-                        @foreach ($groupedExpenses as $categoryName => $group)
-                            @php $color = $palette[$loop->index % count($palette)]; @endphp
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
-                                    <i class="w-2 h-2 rounded-full flex-shrink-0"
-                                        style="background-color: {{ $color }}"></i>
-                                    {{ $categoryName }}
-                                </span>
-                                <span class="font-bold text-[10px] uppercase font-mono"
-                                    style="color: {{ $color }}">
-                                    {{ $group->count() }} items
-                                </span>
-                            </div>
-                        @endforeach
-                    </div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">
+                        {{ __('app.CATEGORY SPLIT') }}</p>
+                    @foreach ($groupedExpenses as $categoryKey => $group)
+    @php
+        $color = $palette[$loop->index % count($palette)];
+    @endphp
+
+    <div class="flex justify-between items-center text-xs">
+        <span class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
+            <i class="w-2 h-2 rounded-full flex-shrink-0"
+               style="background-color: {{ $color }}"></i>
+
+            {{ __('app.categories.' . $categoryKey) }}
+        </span>
+
+        <span class="font-bold text-[10px] uppercase font-mono"
+              style="color: {{ $color }}">
+            {{ $group->count() }} items
+        </span>
+    </div>
+@endforeach
                 </div>
                 <div class="relative w-28 h-28 flex-shrink-0">
                     <canvas id="expenseDistributionChart"></canvas>
@@ -138,11 +143,16 @@
                 <table class="w-full text-left text-sm">
                     <thead>
                         <tr class="text-gray-400 border-b border-gray-100 dark:border-white/5">
-                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Manager</th>
-                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Expense Title</th>
-                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Category</th>
-                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Amount</th>
-                            <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">Date</th>
+                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">{{ __('app.MANAGER') }}
+                            </th>
+                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
+                                {{ __('app.EXPENSE TITLE') }}</th>
+                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">{{ __('app.CATEGORY') }}
+                            </th>
+                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">{{ __('app.AMOUNT') }}
+                            </th>
+                            <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">
+                                {{ __('app.DATE') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50 dark:divide-white/5">
@@ -155,18 +165,25 @@
                                             {{ strtoupper(substr($exp->user->name, 0, 2)) }}
                                         </div>
                                         <span
-                                            class="font-semibold text-gray-900 dark:text-white">{{ $exp->user->name }}</span>
+                                            class="font-semibold text-gray-900 dark:text-white">{{ $exp->user->display_name }}</span>
                                     </div>
                                 </td>
                                 <td class="py-4 text-gray-500 dark:text-gray-400">{{ $exp->title }}</td>
-                                <td class="py-4">
+                               <td class="py-4">
+                                    @php
+                                        $name = $exp->category->name ?? 'general';
+
+                                        // convert to key format
+                                        $key = strtolower(str_replace([' ', '/'], '_', $name));
+                                    @endphp
+
                                     <span
                                         class="px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-tighter">
-                                        {{ is_array($exp->category) ? $exp->category['name'] ?? 'General' : $exp->category->name ?? 'General' }}
+                                        {{ __('app.categories.' . $key) }}
                                     </span>
                                 </td>
                                 <td class="py-4 font-mono font-bold text-pink-600 dark:text-pink-400">
-                                    {{ number_format($exp->amount) }} PKR</td>
+                                    {{ number_format($exp->amount) }} {{__('app.Rs')}}</td>
                                 <td class="py-4 text-right text-xs text-gray-400 dark:text-gray-500 font-semibold">
                                     {{ \Carbon\Carbon::parse($exp->expense_date)->format('d M, Y') }}</td>
                             </tr>
@@ -182,37 +199,64 @@
 
             <!-- Mobile Stacked Cards -->
             <div class="md:hidden space-y-4 mt-4">
-                @foreach ($expenses as $exp)
+    @foreach ($expenses as $exp)
+        <div
+            class="p-4 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
+
+            <div class="flex justify-between items-center mb-2">
+
+                {{-- USER --}}
+                <div class="flex items-center gap-2">
                     <div
-                        class="p-4 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-                        <div class="flex justify-between items-center mb-2">
-                            <div class="flex items-center gap-2">
-                                <div
-                                    class="w-8 h-8 rounded-full bg-pink-500/10 text-pink-500 flex items-center justify-center text-[10px] font-black uppercase">
-                                    {{ strtoupper(substr($exp->user->name, 0, 2)) }}
-                                </div>
-                                <span
-                                    class="font-semibold text-gray-900 dark:text-white text-sm">{{ $exp->user->name }}</span>
-                            </div>
-                            <span
-                                class="text-xs text-gray-400 dark:text-gray-500 font-semibold">{{ \Carbon\Carbon::parse($exp->expense_date)->format('d M, Y') }}</span>
-                        </div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400 space-y-1">
-                            <div><span class="font-semibold">Title:</span> {{ $exp->title }}</div>
-                            <div>
-                                <span class="font-semibold">Category:</span>
-                                <span
-                                    class="px-2 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 font-bold uppercase tracking-tighter">
-                                    {{ is_array($exp->category) ? $exp->category['name'] ?? 'General' : $exp->category->name ?? 'General' }}
-                                </span>
-                            </div>
-                            <div><span class="font-semibold">Amount:</span> <span
-                                    class="font-mono font-bold text-pink-600 dark:text-pink-400">{{ number_format($exp->amount) }}
-                                    PKR</span></div>
-                        </div>
+                        class="w-8 h-8 rounded-full bg-pink-500/10 text-pink-500 flex items-center justify-center text-[10px] font-black uppercase">
+                        {{ strtoupper(substr($exp->user->name, 0, 2)) }}
                     </div>
-                @endforeach
+
+                    <span class="font-semibold text-gray-900 dark:text-white text-sm">
+                        {{ app()->getLocale() === 'ur'
+                            ? ($exp->user->name_ur ?? $exp->user->name)
+                            : $exp->user->name }}
+                    </span>
+                </div>
+
+                <span class="text-xs text-gray-400 dark:text-gray-500 font-semibold">
+                    {{ \Carbon\Carbon::parse($exp->expense_date)->format('d M, Y') }}
+                </span>
             </div>
+
+            <div class="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+
+                {{-- TITLE --}}
+                <div>
+                    <span class="font-semibold">{{ __('app.Title') }}:</span>
+                    {{ $exp->title }}
+                </div>
+
+                {{-- CATEGORY --}}
+                <div>
+                    <span class="font-semibold">{{ __('app.CATEGORY') }}:</span>
+
+                    <span
+                        class="px-2 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 font-bold uppercase tracking-tighter">
+
+                        {{ __('app.categories.' . ($exp->category->name ?? 'Miscellaneous')) }}
+
+                    </span>
+                </div>
+
+                {{-- AMOUNT --}}
+                <div>
+                    <span class="font-semibold">{{ __('app.AMOUNT') }}:</span>
+
+                    <span class="font-mono font-bold text-pink-600 dark:text-pink-400">
+                        {{ number_format($exp->amount) }} {{__('app.Rs')}}
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    @endforeach
+</div>
 
             <div class="mt-6">
                 {{ $expenses->appends(request()->query())->links() }}

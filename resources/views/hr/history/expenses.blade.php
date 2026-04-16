@@ -17,14 +17,13 @@
                     <div class="flex items-center gap-2 mb-1">
                         <span class="flex h-2 w-2 rounded-full bg-pink-500 animate-pulse"></span>
                         <span class="text-[10px] uppercase tracking-widest font-bold text-pink-600 dark:text-pink-400">
-                            Sigma Archive
+                            {{__('app.Sigma Archive')}}
                         </span>
                     </div>
                     <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                        Master Expense Ledger
+                        {{__('app.Master Expense Ledger')}}
                     </h1>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Reviewing historic spendings and audit
-                        trails.</p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{{__('app.Reviewing_historic')}}</p>
                 </div>
 
                 {{-- Filter & Export Bar --}}
@@ -54,20 +53,44 @@
                         </div>
 
                         {{-- Category Dropdown --}}
-                        <select name="category_id"
-                            class="bg-transparent border-none text-xs font-bold text-gray-700 dark:text-gray-300 focus:ring-0 cursor-pointer py-0 w-24" style="width:120px">
-                            <option value="">All Categories</option>
-                            @foreach ($categories as $cat)
-                                <option value="{{ $cat->id }}"
-                                    {{ request('category_id') == $cat->id ? 'selected' : '' }} class="text-black">
-                                    {{ $cat->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                       {{-- Category Dropdown --}}
+<div class="flex items-center border-r border-gray-100 dark:border-white/10 pr-2">
+    <select name="category_id"
+        class="bg-transparent border-none text-xs font-bold text-gray-700 dark:text-gray-300 focus:ring-0 cursor-pointer py-0 w-[140px]">
+
+        <option value="">{{ __('app.All Categories') }}</option>
+
+        @foreach ($categories as $cat)
+            @php
+                $map = [
+                    'Bilty' => 'Bilty',
+                    'Cash' => 'Cash',
+                    'Office Supplies/Expenses' => 'Office Supplies/Expenses',
+                    'Mobile Load' => 'Mobile Load',
+                    'Food/Entertainment' => 'Food/Entertainment',
+                    'Mis Salary' => 'Mis Salary',
+                    'Parking' => 'Parking',
+                    'Water Bottle Refill' => 'Water Bottle Refill',
+                    'Miscellaneous' => 'Miscellaneous',
+                    'Freight Out' => 'Freight Out',
+                ];
+
+                $langKey = $map[$cat->name] ?? $cat->name;
+            @endphp
+
+            <option value="{{ $cat->id }}"
+                {{ request('category_id') == $cat->id ? 'selected' : '' }}>
+
+                {{ __('app.categories.' . $langKey) }}
+            </option>
+        @endforeach
+
+    </select>
+</div>
 
                         <button type="submit"
                             class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-3 md:px-4 py-2 rounded-lg text-[9px] font-black uppercase transition-all hover:scale-[1.02] active:scale-95 mr-2">
-                            Filter
+                            {{__('app.FILTER')}}
                         </button>
 
                         @if (request()->hasAny(['month', 'category_id']))
@@ -100,7 +123,7 @@
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" x2="12" y1="15" y2="3" />
                             </svg>
-                            Export
+                            {{__('app.Export')}}
                         </button>
                     </form>
 
@@ -119,10 +142,10 @@
 
             <div>
                 <p class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
-                    Total Filtered Amount
+                    {{__('app.Total Filtered Amount')}}
                 </p>
                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-1">
-                    Rs. {{ number_format($expenses->sum('amount')) }}
+                    {{__('app.Rs')}} {{ number_format($expenses->sum('amount')) }}
                 </h3>
             </div>
 
@@ -141,10 +164,10 @@
 
             <div>
                 <p class="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">
-                    Total Record Count
+                    {{__('app.Total Record Count')}}
                 </p>
                 <h3 class="text-xl sm:text-2xl font-black text-gray-900 dark:text-white mt-1">
-                    {{ $expenses->total() }} Transactions
+                    {{ $expenses->total() }} {{__('app.Transaction')}}
                 </h3>
             </div>
 
@@ -168,42 +191,62 @@
 
             <div class="flex items-center justify-between mb-3">
                 <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                    Distribution
+                    {{__('app.Distribution')}}
                 </p>
                 <span class="h-2 w-2 rounded-full bg-pink-500"></span>
             </div>
 
             <div class="space-y-3 flex-1 overflow-y-auto custom-scrollbar pr-2">
 
-                @php
-                    $totalAmount = array_sum($values->toArray());
-                    $palette = ['#ea258e', '#7c3aed', '#3b82f6', '#10b981', '#f59e0b'];
-                @endphp
+    @php
+        $totalAmount = array_sum($values->toArray());
+        $palette = ['#ea258e', '#7c3aed', '#3b82f6', '#10b981', '#f59e0b'];
 
-                @foreach ($labels as $index => $name)
-                    @php
-                        $percentage = $totalAmount > 0 ? round(($values[$index] / $totalAmount) * 100) : 0;
-                        $color = $palette[$index % count($palette)];
-                    @endphp
+        // Category translation map (DB → lang key)
+        $map = [
+            'Bilty' => 'Bilty',
+            'Cash' => 'Cash',
+            'Office Supplies/Expenses' => 'Office Supplies/Expenses',
+            'Mobile Load' => 'Mobile Load',
+            'Food/Entertainment' => 'Food/Entertainment',
+            'Mis Salary' => 'Mis Salary',
+            'Parking' => 'Parking',
+            'Water Bottle Refill' => 'Water Bottle Refill',
+            'Miscellaneous' => 'Miscellaneous',
+            'Freight Out' => 'Freight Out',
+        ];
+    @endphp
 
-                    <div
-                        class="flex justify-between items-center text-xs px-2 py-1 rounded-xl transition hover:bg-gray-100 dark:hover:bg-white/5">
+    @foreach ($labels as $index => $name)
+        @php
+            $percentage = $totalAmount > 0 ? round(($values[$index] / $totalAmount) * 100) : 0;
+            $color = $palette[$index % count($palette)];
 
-                        <span class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-300">
-                            <i class="w-2.5 h-2.5 rounded-full shadow-sm"
-                                style="background-color: {{ $color }}"></i>
-                            {{ $name }}
-                        </span>
+            // translate label
+            $langKey = $map[$name] ?? $name;
+        @endphp
 
-                        <span class="font-mono font-bold text-[11px] tracking-wide"
-                            style="color: {{ $color }}">
-                            {{ $percentage }}%
-                        </span>
+        <div
+            class="flex justify-between items-center text-xs px-2 py-1 rounded-xl transition hover:bg-gray-100 dark:hover:bg-white/5">
 
-                    </div>
-                @endforeach
+            {{-- LEFT SIDE (LABEL) --}}
+            <span class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-300">
+                <i class="w-2.5 h-2.5 rounded-full shadow-sm"
+                    style="background-color: {{ $color }}"></i>
 
-            </div>
+                {{ __('app.categories.' . $langKey) }}
+            </span>
+
+            {{-- RIGHT SIDE (PERCENTAGE) --}}
+            <span class="font-mono font-bold text-[11px] tracking-wide"
+                style="color: {{ $color }}">
+                {{ $percentage }}%
+            </span>
+
+        </div>
+    @endforeach
+
+</div>
 
         </div>
 
@@ -227,17 +270,17 @@
                             <tr
                                 class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px] text-gray-400">
-                                    User / Role</th>
+                                    {{__('app.User / Role')}}</th>
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px] text-gray-400">
-                                    Transaction Details</th>
+                                    {{__('app.Transaction Details')}}</th>
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px] text-gray-400">
-                                    Expense Date</th>
+                                    {{__('app.Expense Date')}}</th>
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px] text-gray-400">
-                                    Expense Category</th>
+                                    {{__('app.Expense Category')}}</th>
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px] text-gray-400">
-                                    Amount</th>
+                                    {{__('app.AMOUNT')}}</th>
                                 <th class="px-8 py-6 font-medium tracking-wider uppercase text-[10px] text-gray-400">
-                                    Status</th>
+                                    {{__('app.STATUS')}}</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50 dark:divide-white/5">
@@ -266,12 +309,9 @@
                                             {{-- User Info --}}
                                             <div class="flex flex-col">
                                                 <span class="font-semibold text-gray-900 dark:text-white">
-                                                    {{ $item->user->name }}
+                                                    {{ $item->user->display_name }}
                                                 </span>
-                                                <span
-                                                    class="text-[10px] uppercase text-gray-400 tracking-wider font-bold">
-                                                    {{ $item->user->role }}
-                                                </span>
+
                                             </div>
 
                                         </div>
@@ -291,23 +331,52 @@
                                         </div>
                                     </td>
                                     <td class="px-8 py-6">
-                                        <div class="flex flex-col">
-                                            <span
-                                                class="text-sm font-semibold text-gray-900 dark:text-white">{{ $item->category->name }}</span>
+    <div class="flex flex-col">
+        @php
+            $map = [
+                'Bilty' => 'Bilty',
+                'Cash' => 'Cash',
+                'Office Supplies/Expenses' => 'Office Supplies/Expenses',
+                'Mobile Load' => 'Mobile Load',
+                'Food/Entertainment' => 'Food/Entertainment',
+                'Mis Salary' => 'Mis Salary',
+                'Parking' => 'Parking',
+                'Water Bottle Refill' => 'Water Bottle Refill',
+                'Miscellaneous' => 'Miscellaneous',
+                'Freight Out' => 'Freight Out',
+            ];
 
-                                        </div>
-                                    </td>
+            $name = $item->category->name ?? 'General';
+            $langKey = $map[$name] ?? $name;
+        @endphp
+
+        <span class="text-sm font-semibold text-gray-900 dark:text-white">
+            {{ __('app.categories.' . $langKey) }}
+        </span>
+    </div>
+</td>
                                     <td class="px-8 py-6">
                                         <span class="text-sm font-mono font-bold text-pink-600 dark:text-pink-400">
-                                            -Rs. {{ number_format($item->amount) }}
+                                            -{{__('app.Rs')}} {{ number_format($item->amount) }}
                                         </span>
                                     </td>
                                     <td class="px-8 py-6 text-right">
-                                        <span
-                                            class="inline-flex px-4 py-2 rounded-2xl text-[10px] font-bold uppercase tracking-wider border {{ $item->status === 'approved' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-orange-500/10 text-orange-500 border-orange-500/20 shadow-lg shadow-orange-500/10' }}">
-                                            {{ $item->status }}
-                                        </span>
-                                    </td>
+    @php
+        $status = strtolower($item->status);
+
+        $statusClasses = [
+            'approved' => 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+            'pending' => 'bg-orange-500/10 text-orange-500 border-orange-500/20',
+            'rejected' => 'bg-red-500/10 text-red-500 border-red-500/20',
+        ];
+    @endphp
+
+    <span
+        class="inline-flex px-4 py-2 rounded-2xl text-[10px] font-bold uppercase tracking-wider border {{ $statusClasses[$status] ?? 'bg-gray-500/10 text-gray-500 border-gray-500/20' }}">
+
+        {{ __('app.status.' . $status) }}
+    </span>
+</td>
                                 </tr>
                             @empty
                                 <tr>

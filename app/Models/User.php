@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 
-#[Fillable(['name', 'role', 'pin'])]
+#[Fillable(['name', 'name_ur', 'role', 'pin'])]
 #[Hidden(['pin', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -41,6 +41,12 @@ class User extends Authenticatable
 
 public function transactions() {
     return $this->hasMany(WalletTransaction::class);
+}
+public function getDisplayNameAttribute()
+{
+    return app()->getLocale() === 'ur'
+        ? ($this->name_ur ?? $this->name)
+        : $this->name;
 }
 }
 

@@ -8,10 +8,12 @@
                 <div class="flex items-center gap-2 mb-1">
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span
-                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">{{__('app.system_live')}}</span>
+                        class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">{{ __('app.system_live') }}</span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ __('app.manage_expense') }}</h1>
-                <p class="text-gray-500 dark:text-gray-400 text-sm">{{__('app.sigmaadmindash')}}</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ __('app.manage_expense') }}
+                </h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">{{ __('app.sigmaadmindash', ['year' => date('Y')]) }}
+                </p>
             </div>
         </div>
 
@@ -25,7 +27,7 @@
                             <path
                                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg></div>
-                    <span class="font-semibold text-sm dark:text-gray-200">Expense Logs</span>
+                    <span class="font-semibold text-sm dark:text-gray-200">{{ __('app.expense_log_admin') }}</span>
                 </a>
                 <a href="/admin/users"
                     class="group flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm transition-all hover:bg-gray-100 dark:hover:bg-white/10">
@@ -34,7 +36,7 @@
                             <path
                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg></div>
-                    <span class="font-semibold text-sm dark:text-gray-200">Manage Users</span>
+                    <span class="font-semibold text-sm dark:text-gray-200">{{ __('app.manage_user_admin') }}</span>
                 </a>
                 <a href="/admin/analytics"
                     class="group flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm transition-all hover:bg-gray-100 dark:hover:bg-white/10">
@@ -43,7 +45,7 @@
                             <path
                                 d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg></div>
-                    <span class="font-semibold text-sm dark:text-gray-200">Deep Analytics</span>
+                    <span class="font-semibold text-sm dark:text-gray-200">{{ __('app.deep_analytics_admin') }}</span>
                 </a>
 
             </div>
@@ -53,24 +55,24 @@
             <div
                 class="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-bold text-gray-900 dark:text-white">Expense Flow (PKR)</h3>
+                    <h3 class="font-bold text-gray-900 dark:text-white">{{ __('app.Expense Flow (PKR)') }}</h3>
                     <select id="timeframeFilter"
                         onchange="window.location.href = '{{ route('admin.dashboard') }}?timeframe=' + this.value"
                         class="bg-transparent text-xs border border-gray-200 dark:border-white/10 rounded-lg p-1 dark:text-white cursor-pointer hover:border-pink-500 transition-colors">
                         <option value="3" {{ request('timeframe') == '3' ? 'selected' : '' }}
-                            class="dark:text-black">Last 3 Months
+                            class="dark:text-black">{{ __('app.Last 3 Months') }}
                         </option>
                         <option value="6" {{ request('timeframe') == '6' ? 'selected' : '' }}
-                            class="dark:text-black">Last 6 Months
+                            class="dark:text-black">{{ __('app.Last 6 Months') }}
                         </option>
                         <option value="12" {{ request('timeframe') == '12' ? 'selected' : '' }}
-                            class="dark:text-black">Last 12 Months
+                            class="dark:text-black">{{ __('app.Last 12 Months') }}
                         </option>
                     </select>
                     @if (request('timeframe'))
                         <a href="{{ route('admin.dashboard') }}"
                             class="text-[10px] text-gray-400 hover:text-pink-500 border border-gray-200 dark:border-white/10 rounded-lg px-2 py-1 transition-colors">
-                            Reset
+                            {{ __('app.Reset') }}
                         </a>
                     @endif
                 </div>
@@ -78,7 +80,7 @@
             </div>
 
             <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-                <h3 class="font-bold text-gray-900 dark:text-white mb-6">Expense Distribution</h3>
+                <h3 class="font-bold text-gray-900 dark:text-white mb-6">{{ __('app.Expense Distribution') }}</h3>
 
                 <div class="relative">
                     <canvas id="categoryChart" class="max-h-[250px]"></canvas>
@@ -99,15 +101,22 @@
 
                 <div class="mt-6 space-y-3 max-h-[150px] overflow-y-auto custom-scrollbar pr-2">
                     @foreach ($grouped as $name => $items)
-                        @php
-                            $percentage = $totalCount > 0 ? round(($items->count() / $totalCount) * 100) : 0;
-                            $color = $palette[$loop->index % count($palette)];
-                        @endphp
+    @php
+        $percentage = $totalCount > 0 ? round(($items->count() / $totalCount) * 100) : 0;
+
+        $color = $palette[$loop->index % count($palette)];
+
+        $key = strtolower(str_replace([' ', '/'], '_', $name));
+        $langKey = $key;
+    @endphp
+
                         <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400">
                             <span class="flex items-center gap-2 font-medium">
                                 <i class="w-2 h-2 rounded-full" style="background-color: {{ $color }}"></i>
-                                {{ $name }}
+
+                                {{ __('app.categories.' . $langKey) }}
                             </span>
+
                             <span class="font-mono font-bold">{{ $percentage }}%</span>
                         </div>
                     @endforeach
@@ -116,15 +125,27 @@
         </div>
         <div class="mt-8">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="font-bold text-lg text-gray-900 dark:text-white tracking-tight">Live Activity Stream</h3>
-                <a href="/admin/expenses"
-                    class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-pink-500/20 transition-all flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    View All Logs
-                </a>
-            </div>
+    <h3 class="font-bold text-lg text-gray-900 dark:text-white tracking-tight">
+        {{ __('app.Live Activity Stream') }}
+    </h3>
+
+    <a href="/admin/expenses"
+        class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-pink-500/20 transition-all flex items-center gap-2">
+
+        <!-- Eye Icon -->
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5
+                   c4.477 0 8.268 2.943 9.542 7
+                   -1.274 4.057-5.065 7-9.542 7
+                   -4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+
+        {{ __('app.View All Logs') }}
+    </a>
+</div>
 
             <div
                 class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm overflow-hidden">
@@ -132,11 +153,16 @@
                     <table class="w-full text-left text-sm">
                         <thead>
                             <tr class="text-gray-400 border-b border-gray-100 dark:border-white/5">
-                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Member Name</th>
-                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Title</th>
-                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Category</th>
-                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Amount</th>
-                                <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">Status
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
+                                    {{ __('app.MEMBER NAME') }}</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
+                                    {{ __('app.TITLE') }}</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
+                                    {{ __('app.CATEGORY') }}</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
+                                    {{ __('app.AMOUNT') }}</th>
+                                <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">
+                                    {{ __('app.STATUS') }}
                                 </th>
                             </tr>
                         </thead>
@@ -148,18 +174,17 @@
                                             {{-- Dynamic Initials Avatar --}}
                                             <div
                                                 class="w-8 h-8 rounded-full bg-pink-500/10 text-pink-500 flex items-center justify-center text-[10px] font-black uppercase">
-                                                {{ strtoupper(substr($expense->user->name, 0, 2)) }}
+                                                {{ strtoupper(substr($expense->user->display_name, 0, 2)) }}
                                             </div>
                                             <span
-                                                class="font-semibold text-gray-900 dark:text-white">{{ $expense->user->name }}</span>
+                                                class="font-semibold text-gray-900 dark:text-white">{{ optional($expense->user)->display_name }}</span>
                                         </div>
                                     </td>
                                     <td class="py-4 text-gray-500 dark:text-gray-400">
                                         {{ $expense->title }}
                                     </td>
                                     <td class="py-4 text-gray-500 dark:text-gray-400">
-                                        {{-- Check if category is an object/array and show the name, otherwise fallback --}}
-                                        {{ is_array($expense->category) ? $expense->category['name'] ?? 'Site-General' : $expense->category->name ?? 'Site-General' }}
+                                        {{ __('app.categories.' . $expense->category->name ?? 'site_general') }}
                                     </td>
                                     <td class="py-4 font-mono font-bold text-pink-600 dark:text-pink-400">
                                         {{ number_format($expense->amount) }} PKR
@@ -171,10 +196,16 @@
                                                 'pending' => 'bg-amber-500/10 text-amber-500',
                                                 'rejected' => 'bg-rose-500/10 text-rose-500',
                                             ];
+
+                                            // normalize DB value
+                                            $status = strtolower($expense->status);
                                         @endphp
+
                                         <span
-                                            class="px-3 py-1 {{ $statusClasses[$expense->status] ?? 'bg-gray-500/10 text-gray-500' }} text-[10px] font-bold rounded-full uppercase tracking-tighter">
-                                            {{ $expense->status }}
+                                            class="px-3 py-1 {{ $statusClasses[$status] ?? 'bg-gray-500/10 text-gray-500' }}
+        text-[10px] font-bold rounded-full uppercase tracking-tighter">
+
+                                            {{ __('app.status.' . $status) }}
                                         </span>
                                     </td>
                                 </tr>
@@ -198,10 +229,10 @@
                                 <div class="flex items-center gap-2">
                                     <div
                                         class="w-8 h-8 rounded-full bg-pink-500/10 text-pink-500 flex items-center justify-center text-[10px] font-black uppercase">
-                                        {{ strtoupper(substr($expense->user->name, 0, 2)) }}
+                                        {{ strtoupper(substr($expense->user->display_name, 0, 2)) }}
                                     </div>
                                     <span class="font-semibold text-gray-900 dark:text-white text-sm">
-                                        {{ $expense->user->name }}
+                                        {{ optional($expense->user)->display_name }}
                                     </span>
                                 </div>
 
@@ -232,14 +263,14 @@
             <!-- User Table -->
             <div class="mt-8">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-bold text-lg text-gray-900 dark:text-white">User Management</h3>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white">{{ __('app.User Management') }}</h3>
                     <a href="{{ route('admin.create-user') }}"
                         class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold rounded-xl shadow-lg shadow-pink-500/20 transition-all flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 4v16m8-8H4" />
                         </svg>
-                        Add New User
+                        {{ __('app.Add New User') }}
                     </a>
                 </div>
 
@@ -250,14 +281,17 @@
                             <thead>
                                 <tr
                                     class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">User Profile
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">
+                                        {{ __('app.USER PROFILE') }}
                                     </th>
-                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">Access Role
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">
+                                        {{ __('app.ACCESS ROLE') }}
                                     </th>
-                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">Security PIN
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">
+                                        {{ __('app.SECURITY PIN') }}
                                     </th>
                                     <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px] text-right">
-                                        Actions</th>
+                                        {{ __('app.ACTIONS') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50 dark:divide-white/5">
@@ -271,7 +305,7 @@
                                                     {{ strtoupper(substr($user->name, 0, 2)) }}
                                                 </div>
                                                 <span
-                                                    class="font-semibold text-gray-900 dark:text-white">{{ $user->name }}</span>
+                                                    class="font-semibold text-gray-900 dark:text-white">{{ $user->display_name }}</span>
                                             </div>
                                         </td>
 
@@ -283,13 +317,16 @@
                                                     'expense_manager' =>
                                                         'bg-amber-500/10 text-amber-500 border-amber-500/20',
                                                 ];
+
+                                                $role = strtolower($user->role);
                                                 $colorClass =
-                                                    $roleColors[$user->role] ??
+                                                    $roleColors[$role] ??
                                                     'bg-gray-500/10 text-gray-500 border-gray-500/20';
                                             @endphp
+
                                             <span
                                                 class="px-2.5 py-1 rounded-lg border {{ $colorClass }} text-[10px] font-bold uppercase">
-                                                {{ str_replace('_', ' ', $user->role) }}
+                                                {{ __('app.roles.' . $role) }}
                                             </span>
                                         </td>
 
@@ -338,7 +375,7 @@
                                             {{ strtoupper(substr($user->name, 0, 2)) }}
                                         </div>
                                         <span class="font-semibold text-gray-900 dark:text-white text-sm">
-                                            {{ $user->name }}
+                                            {{ $user->display_name }}
                                         </span>
                                     </div>
 

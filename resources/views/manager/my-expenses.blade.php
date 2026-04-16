@@ -21,11 +21,9 @@
                     <div class="flex items-center gap-2 mb-1">
                         <span class="flex h-2 w-2 rounded-full bg-pink-500 animate-pulse"></span>
                         <span
-                            class="text-[10px] uppercase tracking-widest text-pink-600 dark:text-pink-400 font-bold">Analytics
-                            & Log</span>
+                            class="text-[10px] uppercase tracking-widest text-pink-600 dark:text-pink-400 font-bold">{{__('app.Analytics & Log')}}</span>
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Expense
-                        Overview</h1>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{__('app.Expense Overview')}}</h1>
                 </div>
 
                 {{-- Advanced Filter Tool --}}
@@ -35,7 +33,7 @@
                     <div class="flex flex-col justify-center">
                         <label
                             class="text-[8px] font-bold uppercase tracking-[0.2em] text-pink-500 mb-0.5 ml-0.5 opacity-80">
-                            Select Period
+                            {{__('app.SELECT_PERIOD')}}
                         </label>
                         <div class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-400 dark:text-gray-500"
@@ -66,7 +64,7 @@
                             <path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16" />
                         </svg>
 
-                        <span class="relative z-10">Sync Data</span>
+                        <span class="relative z-10">{{__('app.SYNC')}}</span>
                     </button>
                 </form>
 
@@ -89,11 +87,11 @@
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
                         </div>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Total Logs</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{{__('app.TOTAL LOGS')}}</p>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
                          {{ $totalLogs }}
-                        <span class="text-xs font-medium text-gray-400 ml-1">Bills</span>
+                        <span class="text-xs font-medium text-gray-400 ml-1">{{__('app.Bills')}}</span>
                     </h3>
                 </div>
 
@@ -101,16 +99,14 @@
                     class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
                     <div class="flex items-center gap-3 mb-2">
                         <div class="p-2 bg-rose-500/10 text-rose-500 rounded-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                            </svg>
-                        </div>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Total Spending</p>
+    <svg class="w-4 h-4" viewBox="0 0 122.88 98.34" fill="currentColor">
+        <path fill-rule="evenodd" d="M.71,24.6H8.8V0H40q14.7,0,22.74,7.64c4.4,4.19,7,9.86,7.77,17H81.81a.73.73,0,0,1,.71.72v11a.73.73,0,0,1-.71.72H70.15Q67.79,50.36,56.74,56.45L73.72,96V97h-21L38.1,61.65H28.37V97H8.8V37.07H.71A.73.73,0,0,1,0,36.35v-11a.71.71,0,0,1,.71-.72ZM107.86,81.4A4.84,4.84,0,0,0,106,77.76c-1.26-1.12-4.06-2.61-8.39-4.52q-9.57-3.88-13.16-8a15.28,15.28,0,0,1-3.58-10.33,16.56,16.56,0,0,1,5.62-12.82Q92.06,37,101.29,37c6.5,0,11.68,1.68,15.58,5s5.86,7.85,5.86,13.49H107.26q0-7.22-6-7.22a5.54,5.54,0,0,0-4,1.53,5.67,5.67,0,0,0-1.57,4.27,4.52,4.52,0,0,0,1.73,3.47c1.18,1,3.92,2.45,8.27,4.29,6.31,2.34,10.75,5,13.36,7.8s3.9,6.57,3.9,11.12a15.56,15.56,0,0,1-5.95,12.75c-4,3.21-9.18,4.81-15.64,4.81A24.81,24.81,0,0,1,89.82,95.8,19.2,19.2,0,0,1,82,88.71a18.23,18.23,0,0,1-2.8-9.77h14.7c.08,2.68.69,4.72,1.89,6.06s3.11,2,5.82,2c4.14,0,6.23-1.88,6.23-5.63ZM28.37,24.6H50.51q-2.13-8.24-10.68-8.23H28.37V24.6ZM50.42,37.07h-22v8.21H39.49q5.86,0,8.8-3.88a13.79,13.79,0,0,0,2.13-4.33Z"/>
+    </svg>
+</div>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{{__('app.TOTAL SPENDING')}}</p>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
-                        <span class="text-lg font-semibold text-gray-400">Rs.</span>
+                        <span class="text-lg font-semibold text-gray-400">{{__('app.Rs')}}</span>
                         {{ number_format($totalSpend) }}
                     </h3>
                 </div>
@@ -126,10 +122,10 @@
                                 <path d="M22 12A10 10 0 0 0 12 2v10z" />
                             </svg>
                         </div>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Unit Average</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{{__('app.UNIT AVERAGE')}}</p>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
-                        <span class="text-lg font-semibold text-gray-400">Rs.</span>
+                        <span class="text-lg font-semibold text-gray-400">{{__('app.Rs')}}</span>
                       {{ $totalLogs > 0 ? number_format($totalSpend / $totalLogs) : 0 }}
                     </h3>
                 </div>
@@ -145,10 +141,10 @@
                                 <polyline points="17 6 23 6 23 12" />
                             </svg>
                         </div>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Stability</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{{__('app.STABILITY')}}</p>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white uppercase">
-                        Healthy
+                        {{__('app.Healthy')}}
                     </h3>
                 </div>
 
@@ -161,8 +157,8 @@
                 {{-- Structured Header --}}
                 <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100 dark:border-white/5">
                     <div>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">Spending Chart</h2>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Spending over the last 30 days
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">{{__('app.Spending Chart')}}</h2>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{__('app.Spending over')}}
                         </p>
                     </div>
 
@@ -174,7 +170,7 @@
                                 class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
                         </span>
-                        <span class="text-[10px] font-bold uppercase tracking-wider">Live View</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider">{{__('app.LIVE VIEW')}}</span>
                     </div>
                 </div>
 
@@ -203,17 +199,18 @@
                             {{-- Primary Info --}}
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2 mb-0.5">
-                                    <h3 class="font-bold text-gray-900 dark:text-white truncate tracking-tight">
-                                        {{ $expense->title }}
-                                    </h3>
-                                    <span
-                                        class="px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider
-                            @if ($expense->status == 'approved') bg-pink-500/10 text-pink-600
-                            @elseif($expense->status == 'rejected') bg-rose-500/10 text-rose-600
-                            @else bg-amber-500/10 text-amber-600 @endif">
-                                        {{ $expense->status }}
-                                    </span>
-                                </div>
+    <h3 class="font-bold text-gray-900 dark:text-white truncate tracking-tight">
+        {{ $expense->title }}
+    </h3>
+
+    <span class="px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider
+        @if ($expense->status == 'approved') bg-emerald-500/10 text-emerald-600
+        @elseif($expense->status == 'rejected') bg-rose-500/10 text-rose-600
+        @else bg-amber-500/10 text-amber-600 @endif">
+
+        {{ __('app.status.' . $expense->status) }}
+    </span>
+</div>
                                 <p class="text-[11px] text-gray-500 dark:text-gray-400 truncate">
                                     {{ $expense->description ?? 'No supplemental notes logged.' }}
                                 </p>
@@ -235,7 +232,7 @@
                                 <div class="text-right">
                                     <p class="text-lg font-bold text-gray-900 dark:text-white tracking-tight">
                                         <span
-                                            class="text-xs font-medium text-pink-500">Rs.</span>{{ number_format($expense->amount) }}
+                                            class="text-xs font-medium text-pink-500">{{__('app.Rs')}}</span>{{ number_format($expense->amount) }}
                                     </p>
                                 </div>
 
@@ -287,8 +284,7 @@
             <img id="modalImg" src=""
                 class="max-w-full max-h-[80vh] rounded-[2rem] shadow-[0_0_100px_rgba(234,37,142,0.2)] border border-white/10 object-contain transition-all duration-700 scale-95 opacity-0"
                 onload="this.classList.add('scale-100', 'opacity-100')">
-            <p class="text-white font-bold uppercase tracking-[0.5em] text-[10px] mt-8 opacity-40">Click anywhere to
-                dismiss</p>
+            <p class="text-white font-bold uppercase tracking-[0.5em] text-[10px] mt-8 opacity-40">{{__('app.Click dismiss')}}</p>
         </div>
     </div>
 

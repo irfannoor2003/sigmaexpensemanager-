@@ -22,12 +22,12 @@
                     <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span
                         class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">
-                        System Live
+                        {{__('app.Live Sync')}}
                     </span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">User Management</h1>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{__('app.User Management')}}</h1>
                 <p class="text-gray-500 dark:text-gray-400 text-sm">
-                    Sigma Engineering Services • {{ $totalUsers }} system operators
+                    {{__('app.system operators')}} • {{ $totalUsers }} {{__('app.TOTAL MEMBERS')}}
                 </p>
             </div>
 
@@ -36,7 +36,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Add New Member
+                {{__('app.Add New Member')}}
             </a>
         </div>
 
@@ -47,10 +47,10 @@
 
             {{-- Total Members --}}
             <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">Total Members</p>
+                <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">{{__('app.TOTAL MEMBERS')}}</p>
                 <div class="flex items-baseline gap-2">
                     <span class="text-3xl font-bold text-gray-900 dark:text-white font-mono">{{ $totalUsers }}</span>
-                    <span class="text-xs text-emerald-500 font-bold">Live</span>
+                    <span class="text-xs text-emerald-500 font-bold">{{__('app.Live')}}</span>
                 </div>
                 <div class="mt-4 h-1 w-full bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                     <div class="h-full bg-pink-500 w-full animate-pulse"></div>
@@ -59,21 +59,21 @@
 
             {{-- Admins --}}
             <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">Admins</p>
+                <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">{{__('app.Admin')}}</p>
                 <span class="text-3xl font-bold text-gray-900 dark:text-white font-mono">{{ $adminCount }}</span>
                 <div class="mt-3">
                     <span
-                        class="px-2.5 py-1 rounded-lg border bg-purple-500/10 text-purple-500 border-purple-500/20 text-[10px] font-bold uppercase">Admin</span>
+                        class="px-2.5 py-1 rounded-lg border bg-purple-500/10 text-purple-500 border-purple-500/20 text-[10px] font-bold uppercase">{{__('app.Admin')}}</span>
                 </div>
             </div>
 
             {{-- Expense Managers --}}
             <div class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
-                <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">Exp. Managers</p>
+                <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">{{__('app.Exp.Manager')}}</p>
                 <span class="text-3xl font-bold text-gray-900 dark:text-white font-mono">{{ $managerCount }}</span>
                 <div class="mt-3">
                     <span
-                        class="px-2.5 py-1 rounded-lg border bg-amber-500/10 text-amber-500 border-amber-500/20 text-[10px] font-bold uppercase">Manager</span>
+                        class="px-2.5 py-1 rounded-lg border bg-amber-500/10 text-amber-500 border-amber-500/20 text-[10px] font-bold uppercase">{{__('app.Exp.Manager')}}</span>
                 </div>
             </div>
 
@@ -81,11 +81,11 @@
             <div
                 class="p-6 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm flex items-center justify-between gap-4">
                 <div>
-                    <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">HR Team</p>
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">{{__('app.HR Team')}}</p>
                     <span class="text-3xl font-bold text-gray-900 dark:text-white font-mono">{{ $hrCount }}</span>
                     <div class="mt-3">
                         <span
-                            class="px-2.5 py-1 rounded-lg border bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[10px] font-bold uppercase">HR</span>
+                            class="px-2.5 py-1 rounded-lg border bg-emerald-500/10 text-emerald-500 border-emerald-500/20 text-[10px] font-bold uppercase">{{__('app.HR Team')}}</span>
                     </div>
                 </div>
                 <div class="w-16 h-16 flex-shrink-0">
@@ -96,7 +96,7 @@
 
         {{-- Users Table --}}
         <div class="flex justify-between items-center mb-6">
-            <h3 class="font-bold text-lg text-gray-900 dark:text-white">Personnel Directory</h3>
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white">{{__('app.Personnel Directory')}}</h3>
         </div>
 
         <div
@@ -107,10 +107,10 @@
                 <table class="w-full text-left text-sm">
                     <thead>
                         <tr class="text-gray-400 border-b border-gray-100 dark:border-white/5">
-                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">User Profile</th>
-                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Access Role</th>
-                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">Security PIN</th>
-                            <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">Actions</th>
+                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">{{__('app.Username')}}</th>
+                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">{{__('app.ACCESS ROLE')}}</th>
+                            <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">{{__('app.Security PIN')}}</th>
+                            <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">{{__('app.ACTIONS')}}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50 dark:divide-white/5">
@@ -124,29 +124,30 @@
                                             {{ strtoupper(substr($user->name, 0, 2)) }}
                                         </div>
                                         <div>
-                                            <p class="font-semibold text-gray-900 dark:text-white">{{ $user->name }}
+                                            <p class="font-semibold text-gray-900 dark:text-white">{{ $user->display_name }}
                                             </p>
-                                            <p class="text-[10px] text-gray-400 font-mono">SIGMA-{{ 1000 + $user->id }}
+                                            <p class="text-[10px] text-gray-400 font-mono">{{__('app.Sigma')}}-{{ 1000 + $user->id }}
                                             </p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="py-4">
-                                    @php
-                                        $roleColors = [
-                                            'admin' => 'bg-purple-500/10 text-purple-500 border-purple-500/20',
-                                            'hr' => 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
-                                            'expense_manager' => 'bg-amber-500/10 text-amber-500 border-amber-500/20',
-                                        ];
-                                        $colorClass =
-                                            $roleColors[$user->role] ??
-                                            'bg-gray-500/10 text-gray-500 border-gray-500/20';
-                                    @endphp
-                                    <span
-                                        class="px-2.5 py-1 rounded-lg border {{ $colorClass }} text-[10px] font-bold uppercase">
-                                        {{ str_replace('_', ' ', $user->role) }}
-                                    </span>
-                                </td>
+    @php
+        $roleColors = [
+            'admin' => 'bg-purple-500/10 text-purple-500 border-purple-500/20',
+            'hr' => 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+            'expense_manager' => 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+        ];
+
+        $role = strtolower($user->role);
+
+        $colorClass = $roleColors[$role] ?? 'bg-gray-500/10 text-gray-500 border-gray-500/20';
+    @endphp
+
+    <span class="px-2.5 py-1 rounded-lg border {{ $colorClass }} text-[10px] font-bold uppercase">
+        {{ __('app.roles.' . $role) }}
+    </span>
+</td>
                                 <td class="py-4">
                                     <div class="flex items-center gap-2 group/pin">
                                         <code
@@ -180,43 +181,55 @@
 
             {{-- Mobile Card View --}}
             <div class="sm:hidden divide-y divide-gray-50 dark:divide-white/5">
-                @foreach ($users as $user)
-                    <div class="py-4 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-[10px]">
-                                {{ strtoupper(substr($user->name, 0, 2)) }}
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-900 dark:text-white text-sm">{{ $user->name }}</p>
-                                @php
-                                    $roleColors = [
-                                        'admin' => 'bg-purple-500/10 text-purple-500 border-purple-500/20',
-                                        'hr' => 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
-                                        'expense_manager' => 'bg-amber-500/10 text-amber-500 border-amber-500/20',
-                                    ];
-                                    $colorClass =
-                                        $roleColors[$user->role] ?? 'bg-gray-500/10 text-gray-500 border-gray-500/20';
-                                @endphp
-                                <span
-                                    class="px-2 py-0.5 rounded-lg border {{ $colorClass }} text-[9px] font-bold uppercase">
-                                    {{ str_replace('_', ' ', $user->role) }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex gap-1">
-                            <a href="{{ route('admin.edit-user', $user->id) }}"
-                                class="p-2 text-gray-400 hover:text-indigo-500 hover:bg-indigo-500/10 rounded-xl transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                </svg>
-                            </a>
+    @foreach ($users as $user)
+        <div class="py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
 
-                        </div>
-                    </div>
-                @endforeach
+                {{-- Avatar --}}
+                <div
+                    class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-[10px]">
+                    {{ strtoupper(substr(app()->getLocale() === 'ur' ? ($user->name_ur ?? $user->name) : $user->name, 0, 2)) }}
+                </div>
+
+                <div>
+                    {{-- Name --}}
+                    <p class="font-semibold text-gray-900 dark:text-white text-sm">
+                        {{ app()->getLocale() === 'ur' ? ($user->name_ur ?? $user->name) : $user->name }}
+                    </p>
+
+                    @php
+                        $roleColors = [
+                            'admin' => 'bg-purple-500/10 text-purple-500 border-purple-500/20',
+                            'hr' => 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+                            'expense_manager' => 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+                        ];
+                        $colorClass =
+                            $roleColors[$user->role] ?? 'bg-gray-500/10 text-gray-500 border-gray-500/20';
+
+                        $role = strtolower($user->role);
+                    @endphp
+
+                    {{-- Role --}}
+                    <span
+                        class="px-2 py-0.5 rounded-lg border {{ $colorClass }} text-[9px] font-bold uppercase">
+                        {{ __('app.roles.' . $role) }}
+                    </span>
+                </div>
             </div>
+
+            {{-- Actions --}}
+            <div class="flex gap-1">
+                <a href="{{ route('admin.edit-user', $user->id) }}"
+                    class="p-2 text-gray-400 hover:text-indigo-500 hover:bg-indigo-500/10 rounded-xl transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    @endforeach
+</div>
             {{-- Pagination --}}
             <div class="mt-6">
                 {{ $users->links() }}

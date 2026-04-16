@@ -2,20 +2,30 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\ExpenseCategory;
 
 class ExpenseCategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
-{
-    $categories = ['Bilty', 'Cash', 'Office Supplies/Expenses', 'Mobile Load','Food/Entertainment','Mis Salary','Parking','Water Bottle Refill','Miscellaneous','Freight Out
-' ];
-    foreach($categories as $cat){
-        \App\Models\ExpenseCategory::create(['name' => $cat]);
+    {
+        $categories = [
+            'bilty',
+            'cash',
+            'office_supplies_expenses',
+            'mobile_load',
+            'food_entertainment',
+            'mis_salary',
+            'parking',
+            'water_bottle_refill',
+            'miscellaneous',
+            'freight_out',
+        ];
+
+        foreach ($categories as $cat) {
+            ExpenseCategory::create([
+                'name' => $cat
+            ]);
+        }
     }
-}
 }

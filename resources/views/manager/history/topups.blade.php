@@ -16,11 +16,11 @@
                     <div class="flex items-center gap-2 mb-1">
                         <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                         <span class="text-[10px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400 font-bold">
-                            Wallet Ledger
+                            {{__('app.Wallet Ledger')}}
                         </span>
                     </div>
                     <h1 class="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white tracking-tighter">
-                        Top-up History
+                        {{__('app.Top-up History')}}
                     </h1>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <div class="flex items-center gap-4">
                     <div class="px-4 py-2 bg-gray-50 dark:bg-white/5 rounded-2xl">
                         <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest">
-                            Transaction Count:
+                            {{__('app.Transaction Count')}}:
                             <span class="text-emerald-500 ml-1">
                                 {{ method_exists($topups, 'total') ? $topups->total() : $topups->count() }}
                             </span>
@@ -51,11 +51,11 @@
                     <table class="w-full text-left text-sm border-collapse">
                         <thead>
                             <tr class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Source & Method</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Timestamp</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Amount</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">Reference/Remarks</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px] text-right">Status</th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.SOURCE & METHOD')}}</th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.TIMESTAMP')}}</th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.AMOUNT')}}</th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.REFERENCE/REMARKS')}}</th>
+                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px] text-right">{{__('app.STATUS')}}</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50 dark:divide-white/5">
@@ -72,7 +72,7 @@
                                             <span class="font-bold text-gray-900 dark:text-white">
                                                 {{ $log->created_by == auth()->id() ? 'Self Requested' : 'HR Credit' }}
                                             </span>
-                                            <span class="text-[10px] text-gray-400 uppercase tracking-tighter">Deposit</span>
+                                            <span class="text-[10px] text-gray-400 uppercase tracking-tighter">{{__('app.DEPOSIT')}}</span>
                                         </div>
                                     </div>
                                 </td>
@@ -81,7 +81,7 @@
                                     <span class="block text-[9px] text-gray-400 font-medium">{{ $log->created_at->format('h:i A') }}</span>
                                 </td>
                                 <td class="px-8 py-5 font-mono font-black text-emerald-600 dark:text-emerald-400 text-base">
-                                    +Rs. {{ number_format($log->amount) }}
+                                    +{{__('app.Rs')}}. {{ number_format($log->amount) }}
                                 </td>
                                 <td class="px-8 py-5">
                                     <span class="text-gray-500 dark:text-gray-400 text-[11px] italic">
@@ -90,7 +90,7 @@
                                 </td>
                                 <td class="px-8 py-5 text-right">
                                     <span class="inline-flex px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                                        CLEARED
+                                        {{__('app.CLEARED')}}
                                     </span>
                                 </td>
                             </tr>

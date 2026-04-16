@@ -11,12 +11,10 @@
                     <div class="flex items-center gap-2 mb-1">
                         <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                         <span
-                            class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">System
-                            Live</span>
+                            class="text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">{{__('app.system_live')}}</span>
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Expense Oversight</h1>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">Sigma Engineering Services • Real-time Expense
-                        Control</p>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{__('app.Expense Oversight')}}</h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">{{__('app.Real-time')}}</p>
                 </div>
 
                 <div class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-4 w-full">
@@ -30,7 +28,7 @@
                             </svg>
 
                             <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-wider">
-                                Deadline: {{ \Carbon\Carbon::parse($deadline)->format('d M Y') }}
+                                {{__('app.Deadline')}}: {{ \Carbon\Carbon::parse($deadline)->format('d M Y') }}
                             </span>
                         </div>
                     @endif
@@ -51,7 +49,7 @@
                             class="bg-transparent border-none text-xs font-semibold dark:text-gray-300 focus:ring-0 cursor-pointer flex-1">
                         <button type="submit"
                             class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-2 rounded-lg text-[10px] font-bold uppercase transition-all shadow-lg shadow-indigo-500/20">
-                            Lock Date
+                            {{__('app.Lock Date')}}
                         </button>
                     </form>
 
@@ -79,7 +77,7 @@
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" x2="12" y1="15" y2="3" />
                             </svg>
-                            Export
+                            {{__('app.Export')}}
                         </button>
                     </form>
                 </div>
@@ -100,7 +98,7 @@
             <path d="M3 3v5h5" />
             <path d="m12 7v5l4 2" />
         </svg>
-        Full Financial History
+        {{__('app.Full Financial History')}}
     </a>
 
     {{-- Month/Year Toggle --}}
@@ -112,7 +110,7 @@
                 ? 'bg-white dark:bg-white/10 shadow-sm text-gray-900 dark:text-white'
                 : 'text-gray-500 hover:text-gray-700'"
             class="w-1/2 md:w-auto px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer">
-            Monthly
+            {{__('app.Monthly')}}
         </button>
 
         <button type="button" @click="view = 'year'"
@@ -120,7 +118,7 @@
                 ? 'bg-white dark:bg-white/10 shadow-sm text-gray-900 dark:text-white'
                 : 'text-gray-500 hover:text-gray-700'"
             class="w-1/2 md:w-auto px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer">
-            Yearly
+            {{__('app.Yearly')}}
         </button>
 
     </div>
@@ -134,15 +132,15 @@
                             <div>
                                 <p
                                     class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
-                                    Total Amount Approved
+                                    {{__('app.Total Amount Approved')}}
                                 </p>
                                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
                                     x-show="view === 'month'">
-                                    Rs. {{ number_format($totalAddedMonth) }}
+                                    {{__('app.Rs')}}. {{ number_format($totalAddedMonth) }}
                                 </h2>
                                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
                                     x-show="view === 'year'" x-cloak>
-                                    Rs. {{ number_format($totalAddedYear) }}
+                                    {{__('app.Rs')}}. {{ number_format($totalAddedYear) }}
                                 </h2>
                             </div>
                             <div class="p-3 bg-emerald-500/10 text-emerald-500 rounded-2xl">
@@ -160,7 +158,7 @@
                                 stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="18 15 12 9 6 15" />
                             </svg>
-                            <span x-text="view === 'month' ? 'Approved (Month)' : 'Approved (Year)'"></span>
+                            <span x-text="view === 'month' ? '{{__('app.Approved (Month)')}} ' : '{{__('app.Approved (Yearly)')}}'"></span>
                         </div>
                     </div>
 
@@ -171,15 +169,15 @@
                             <div>
                                 <p
                                     class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
-                                    Total Spent
+                                    {{__('app.Total Spent')}}
                                 </p>
                                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
                                     x-show="view === 'month'">
-                                    Rs. {{ number_format($totalSpentMonth) }}
+                                    {{__('app.Rs')}} {{ number_format($totalSpentMonth) }}
                                 </h2>
                                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white mt-2"
                                     x-show="view === 'year'" x-cloak>
-                                    Rs. {{ number_format($totalSpentYear) }}
+                                    {{__('app.Rs')}} {{ number_format($totalSpentYear) }}
                                 </h2>
                             </div>
                             <div class="p-3 bg-pink-500/10 text-pink-500 rounded-2xl">
@@ -198,7 +196,7 @@
                                 stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
-                            <span x-text="view === 'month' ? 'Spent (Month)' : 'Spent (Year)'"></span>
+                            <span x-text="view === 'month' ? '{{__('app.Spent (Month)')}}' : '{{__('app.Spent (Yearly)')}}'"></span>
                         </div>
                     </div>
 
@@ -206,9 +204,8 @@
                     <div class="p-6 rounded-3xl bg-pink-500 shadow-lg shadow-pink-500/20">
                         <div class="flex justify-between items-start text-white">
                             <div>
-                                <p class="text-[10px] uppercase tracking-widest text-white/80 font-bold">Awaiting
-                                    Funding</p>
-                                <h2 class="text-3xl font-bold mt-2">{{ $moneyRequests->count() }} Requests</h2>
+                                <p class="text-[10px] uppercase tracking-widest text-white/80 font-bold">{{__('app.Awaiting Funding')}}</p>
+                                <h2 class="text-3xl font-bold mt-2">{{ $moneyRequests->count() }} {{__('app.Requests')}}</h2>
                             </div>
                             <div class="p-3 bg-white/20 rounded-2xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -223,7 +220,7 @@
                         </div>
                         <div
                             class="mt-3 inline-flex items-center text-[10px] text-white font-bold uppercase bg-white/20 px-2 py-0.5 rounded-full">
-                            Action Required
+                            {{__('app.Action Required')}}
                         </div>
                     </div>
 
@@ -245,7 +242,7 @@
                                 <line x1="18" y1="20" x2="18" y2="4" />
                                 <line x1="6" y1="20" x2="6" y2="16" />
                             </svg>
-                            <h3 class="font-bold text-gray-900 dark:text-white">Financial Flow</h3>
+                            <h3 class="font-bold text-gray-900 dark:text-white">{{__('app.Financial Flow')}}</h3>
                         </div>
 
                         {{-- Filters --}}
@@ -279,7 +276,7 @@
                                 <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             </svg>
-                            <h3 class="font-bold text-gray-900 dark:text-white">Total Managers</h3>
+                            <h3 class="font-bold text-gray-900 dark:text-white">{{__('app.Total Managers')}}</h3>
                         </div>
                         <a href="{{ route('hr.credit') }}"
                             class="p-2 bg-pink-500/10 text-pink-500 rounded-xl hover:bg-pink-500 hover:text-white transition-all">
@@ -289,22 +286,29 @@
                         </a>
                     </div>
                     <div class="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
-                        @foreach ($managers as $manager)
-                            <div
-                                class="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/[0.02] rounded-2xl border border-transparent hover:border-gray-200 dark:hover:border-white/10 transition-all">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-[10px] font-bold">
-                                        {{ strtoupper(substr($manager->name, 0, 2)) }}
-                                    </div>
-                                    <span
-                                        class="text-sm font-semibold text-gray-700 dark:text-gray-200">{{ $manager->name }}</span>
-                                </div>
-                                <span class="text-sm font-mono font-bold text-pink-600 dark:text-pink-400">Rs.
-                                    {{ number_format($manager->wallet) }}</span>
-                            </div>
-                        @endforeach
-                    </div>
+    @foreach ($managers as $manager)
+        <div
+            class="flex items-center justify-between p-4 bg-gray-50 dark:bg-white/[0.02] rounded-2xl border border-transparent hover:border-gray-200 dark:hover:border-white/10 transition-all">
+
+            <div class="flex items-center gap-3">
+
+                <div
+                    class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-[10px] font-bold">
+                    {{ strtoupper(substr($manager->display_name ?? $manager->name_en ?? 'NA', 0, 2)) }}
+                </div>
+
+                <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+                    {{ $manager->display_name ?? $manager->name_en }}
+                </span>
+
+            </div>
+
+            <span class="text-sm font-mono font-bold text-pink-600 dark:text-pink-400">
+                Rs. {{ number_format($manager->wallet) }}
+            </span>
+        </div>
+    @endforeach
+</div>
                 </div>
             </div>
 
@@ -317,7 +321,7 @@
                         <path d="m22 2-7 20-4-9-9-4Z" />
                         <path d="M22 2 11 13" />
                     </svg>
-                    <h3 class="font-bold text-gray-900 dark:text-white">Incoming Requests</h3>
+                    <h3 class="font-bold text-gray-900 dark:text-white">{{__('app.Incoming Request')}}</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @forelse($moneyRequests as $req)
@@ -337,7 +341,7 @@
                                     <p class="text-xl font-bold text-gray-900 dark:text-white">Rs.
                                         {{ number_format($req->amount) }}</p>
                                     <p class="text-[10px] font-bold uppercase text-gray-400 tracking-wider">
-                                        {{ $req->user->name }}</p>
+                                        {{ $req->user->display_name }}</p>
                                 </div>
                             </div>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mb-6 italic line-clamp-2">
@@ -352,7 +356,7 @@
                                             stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                             <polyline points="20 6 9 17 4 12" />
                                         </svg>
-                                        Approve
+                                        {{__('app.Approve')}}
                                     </button>
                                 </form>
                                 <form action="{{ route('hr.reject-request', $req->id) }}" method="POST">
@@ -365,7 +369,7 @@
                                             <line x1="18" x2="6" y1="6" y2="18" />
                                             <line x1="6" x2="18" y1="6" y2="18" />
                                         </svg>
-                                        Reject
+                                        {{__('app.Reject')}}
                                     </button>
                                 </form>
                             </div>
@@ -390,7 +394,7 @@
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                         </svg>
-                        <h3 class="font-bold text-gray-900 dark:text-white">Activity Logs</h3>
+                        <h3 class="font-bold text-gray-900 dark:text-white">{{__('app.Activity Logs')}}</h3>
                     </div>
 
                     {{-- Right: View All Button --}}
@@ -399,7 +403,7 @@
 
                         <span
                             class="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-pink-500 transition-colors">
-                            View All History
+                            {{__('app.View All History')}}
                         </span>
 
                         <svg class="text-gray-400 group-hover:text-pink-500 transition-transform group-hover:translate-x-1"
@@ -417,15 +421,14 @@
                             <thead>
                                 <tr
                                     class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">Username
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">{{__('app.Username')}}
                                     </th>
-                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">Title</th>
-                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">Amount</th>
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">{{__('app.Title')}}</th>
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">{{__('app.AMOUNT')}}</th>
                                     {{-- New Date Column Header --}}
-                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">Date Of
-                                        Created </th>
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">{{__('app.Date of Created')}} </th>
                                     <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px] text-right">
-                                        Verification</th>
+                                        {{__('app.Verification')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50 dark:divide-white/5">
@@ -435,13 +438,13 @@
                                             <div class="flex items-center gap-2">
                                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                                 <span
-                                                    class="font-semibold text-gray-900 dark:text-white">{{ $log->user->name }}</span>
+                                                    class="font-semibold text-gray-900 dark:text-white">{{ $log->user->display_name  }}</span>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 text-gray-500 dark:text-gray-400">{{ $log->title }}
                                         </td>
                                         <td class="px-6 py-4 font-mono font-bold text-pink-600 dark:text-pink-400">
-                                            Rs. {{ number_format($log->amount) }}
+                                            {{__('app.Rs')}} {{ number_format($log->amount) }}
                                         </td>
 
                                         {{-- New Date Column Data --}}
@@ -455,18 +458,23 @@
                                         </td>
 
                                         <td class="px-6 py-4 text-right">
-                                            {{-- Dynamic Status Colors --}}
-                                            <span
-                                                class="inline-flex items-center gap-1 px-2 py-1 rounded-full uppercase text-[10px] font-bold
-                                {{ $log->status === 'approved' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-pink-500/10 text-pink-500' }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                                </svg>
-                                                {{ $log->status }}
-                                            </span>
-                                        </td>
+    @php $status = strtolower($log->status); @endphp
+
+    <span
+        class="inline-flex items-center gap-1 px-2 py-1 rounded-full uppercase text-[10px] font-bold
+        {{ $status === 'approved' ? 'bg-emerald-500/10 text-emerald-500'
+        : ($status === 'rejected' ? 'bg-rose-500/10 text-rose-500'
+        : 'bg-pink-500/10 text-pink-500') }}">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+
+        {{ __('app.status.' . $status) }}
+    </span>
+</td>
                                     </tr>
                                 @endforeach
                             </tbody>

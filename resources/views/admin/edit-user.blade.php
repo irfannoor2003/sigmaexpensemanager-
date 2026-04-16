@@ -21,8 +21,8 @@
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Modify Identity</h1>
-                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Updating SIGMA-{{ 1000 + $user->id }}</p>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{__('app.Modify Identity')}}</h1>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{{__('app.Updating')}}-{{ 1000 + $user->id }}</p>
             </div>
 
             {{-- Form Card --}}
@@ -35,8 +35,7 @@
                     {{-- Name Input --}}
                     <div>
                         <label
-                            class="block text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 ml-1">Legal
-                            Name</label>
+                            class="block text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 ml-1">{{__('app.LEGAL NAME')}}</label>
                         <input type="text" name="name" value="{{ old('name', $user->name) }}" required
                             class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all outline-none">
                     </div>
@@ -44,17 +43,16 @@
                     {{-- Role Selection --}}
                     <div>
                         <label
-                            class="block text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 ml-1">Access
-                            Level</label>
+                            class="block text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 ml-1">{{__('app.ACCESS LEVEL')}}</label>
                         <div class="relative">
                             <select name="role" required
                                 class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white appearance-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 outline-none">
-                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Administrator
+                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>{{__('app.Administrator')}}
                                 </option>
-                                <option value="hr" {{ $user->role == 'hr' ? 'selected' : '' }}>Human Resources
+                                <option value="hr" {{ $user->role == 'hr' ? 'selected' : '' }}>{{__('app.HR')}}
                                 </option>
                                 <option value="expense_manager"
-                                    {{ $user->role == 'expense_manager' ? 'selected' : '' }}>Expense Manager</option>
+                                    {{ $user->role == 'expense_manager' ? 'selected' : '' }}>{{__('app.Expense Manager')}}</option>
                             </select>
                             <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +66,7 @@
                     <div>
                         <label
                             class="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold mb-2 block ml-1">
-                            Security PIN <span class="lowercase opacity-60">(Leave empty to keep current)</span>
+                            {{__('app.Security PIN ')}} <span class="lowercase opacity-60">({{__('app.leave empty to keep current')}})</span>
                         </label>
 
                         <div class="flex items-center gap-2">
@@ -115,7 +113,7 @@
                     {{-- Submit Button --}}
                     <button type="submit"
                         class="w-full py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
-                        Commit Changes
+                       {{__('app.Commit Changes')}}
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
