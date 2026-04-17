@@ -125,7 +125,7 @@ return [
 
      // Admin Users Manage
     'User Management'=>'صارف کے انتظام',
-    'Sigma Engineering Services '=>'سگما انجینئرنگ سروسز ',
+    'Sigma Engineering Services'=>'سگما انجینئرنگ سروسز ',
     'system operators'=>' عاملِ نظام',
     'TOTAL MEMBERS'=>'کل ارکان',
 'Live'=>'براہ راست',
@@ -297,6 +297,13 @@ return [
 'Reject'=>'رد کرنا',
 'Fiscal'=>'مالی',
 'Top-up History'=>'ٹاپ اپ ہسٹری',
+//  Update Page
+
+ 'Edit_Expense'=>'اخراجات میں ترمیم کریں۔',
+ 'Update_your'=>'اپنے اخراجات کا ریکارڈ اپ ڈیٹ کریں۔',
+ 'Current_Receipt'=>'موجودہ رسید',
+ 'Update_Expense'=>'اخراجات کو اپ ڈیٹ کریں۔',
+ 'Replace Receipt (Optional)'=>'رسید کو تبدیل کریں (اختیاری)',
 
 
 'months' => [

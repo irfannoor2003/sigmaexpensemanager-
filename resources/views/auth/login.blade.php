@@ -52,7 +52,7 @@
             {{-- Footer --}}
             <div class="mt-8 pt-6 border-t border-gray-100 dark:border-white/5">
                 <p class="text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                    {{__('app.SIGMA ENGINEERING SERVICES')}}
+                    {{__('app.Sigma Engineering Services')}}
                 </p>
             </div>
         </div>

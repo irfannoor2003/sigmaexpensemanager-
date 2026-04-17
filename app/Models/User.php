@@ -48,6 +48,13 @@ public function getDisplayNameAttribute()
         ? ($this->name_ur ?? $this->name)
         : $this->name;
 }
+// app/Models/User.php
+
+public function hasRole($role)
+{
+    // Adjust 'role' to match your actual database column name
+    return $this->role === $role;
+}
 }
 
 

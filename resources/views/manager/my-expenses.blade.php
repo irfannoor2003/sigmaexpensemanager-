@@ -191,7 +191,7 @@
                             <div class="relative flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-gray-100 dark:bg-black/20 cursor-pointer"
                                 onclick="showReceipt('{{ asset('storage/' . $expense->image) }}')">
                                 <img src="{{ asset('storage/' . $expense->image) }}"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">
                                 <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors">
                                 </div>
                             </div>
@@ -228,25 +228,36 @@
                             </div>
 
                             {{-- Amount & Action --}}
-                            <div class="flex items-center gap-6 ml-4">
-                                <div class="text-right">
-                                    <p class="text-lg font-bold text-gray-900 dark:text-white tracking-tight">
-                                        <span
-                                            class="text-xs font-medium text-pink-500">{{__('app.Rs')}}</span>{{ number_format($expense->amount) }}
-                                    </p>
-                                </div>
+                            <div class="flex items-center gap-3 ml-4">
 
-                                <button onclick="showReceipt('{{ asset('storage/' . $expense->image) }}')"
-                                    class="p-2 rounded-lg bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-pink-500 hover:bg-pink-500/10 transition-all">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M15 3h6v6" />
-                                        <path d="M10 14 21 3" />
-                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                                    </svg>
-                                </button>
-                            </div>
+    {{-- Amount --}}
+    <div class="text-right">
+        <p class="text-lg font-bold text-gray-900 dark:text-white tracking-tight">
+            <span class="text-xs font-medium text-pink-500">Rs</span>{{ number_format($expense->amount) }}
+        </p>
+    </div>
+
+    {{-- VIEW RECEIPT --}}
+    <button onclick="showReceipt('{{ asset('storage/' . $expense->image) }}')"
+        class="p-2 rounded-lg bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-pink-500 hover:bg-pink-500/10 transition-all cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg"  class="w-5 h-5" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M128 96C110.3 96 96 110.3 96 128L96 224C96 241.7 110.3 256 128 256C145.7 256 160 241.7 160 224L160 160L224 160C241.7 160 256 145.7 256 128C256 110.3 241.7 96 224 96L128 96zM160 416C160 398.3 145.7 384 128 384C110.3 384 96 398.3 96 416L96 512C96 529.7 110.3 544 128 544L224 544C241.7 544 256 529.7 256 512C256 494.3 241.7 480 224 480L160 480L160 416zM416 96C398.3 96 384 110.3 384 128C384 145.7 398.3 160 416 160L480 160L480 224C480 241.7 494.3 256 512 256C529.7 256 544 241.7 544 224L544 128C544 110.3 529.7 96 512 96L416 96zM544 416C544 398.3 529.7 384 512 384C494.3 384 480 398.3 480 416L480 480L416 480C398.3 480 384 494.3 384 512C384 529.7 398.3 544 416 544L512 544C529.7 544 544 529.7 544 512L544 416z"/></svg>
+    </button>
+
+    {{-- ✏️ EDIT BUTTON --}}
+    <a href="{{ route('manager.expense.edit', $expense->id) }}"
+
+        class="p-2 rounded-lg bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-blue-500 hover:bg-blue-500/10 transition-all">
+
+        <!-- Pencil Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M11 5h-6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-6M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+        </svg>
+
+    </a>
+
+</div>
                         </div>
                     </div>
                 @empty

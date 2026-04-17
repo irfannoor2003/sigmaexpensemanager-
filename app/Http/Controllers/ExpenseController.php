@@ -300,4 +300,78 @@ public function expenseOverview(Request $request)
         'averagePerDay'
     ));
 }
+public function edit(Expense $expense)
+{
+    // Security: only owner can edit
+    if ($expense->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    $categories = \App\Models\ExpenseCategory::all();
+
+    return view('manager.edit-expense', compact('expense', 'categories'));
+}
+public function update(Request $request, Expense $expense)
+{
+    if ($expense->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    $request->validate([
+        'category_id'  => 'required|exists:expense_categories,id',
+        'title'        => 'required|string|max:255',
+        'amount'       => 'required|numeric|min:1',
+        'expense_date' => 'required|date',
+        'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'remarks'      => 'nullable|string',
+    ]);
+
+    DB::transaction(function () use ($request, $expense) {
+
+        $oldAmount = $expense->amount;
+        $user = auth()->user();
+
+        // Handle image update
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('receipts', 'public');
+            $expense->image = $path;
+        }
+
+        // Update expense
+        $expense->update([
+            'category_id'  => $request->category_id,
+            'title'        => $request->title,
+            'amount'       => $request->amount,
+            'expense_date' => $request->expense_date,
+            'description'  => $request->remarks,
+        ]);
+
+        /**
+         * 🔥 FIX WALLET DIFFERENCE (IMPORTANT)
+         * If user changes amount, adjust wallet properly
+         */
+        $difference = $request->amount - $oldAmount;
+
+        if ($difference != 0) {
+            WalletTransaction::create([
+                'user_id'    => $user->id,
+                'amount'     => abs($difference),
+                'type'       => $difference > 0 ? 'debit' : 'credit',
+                'remarks'    => 'Expense Adjustment: ' . $expense->title,
+                'status'     => 'approved',
+                'created_by' => $user->id
+            ]);
+
+            if ($difference > 0) {
+                $user->decrement('wallet', $difference);
+            } else {
+                $user->increment('wallet', abs($difference));
+            }
+        }
+    });
+
+    return redirect()
+        ->route('manager.my-expenses')
+        ->with('success', '✅ Expense updated successfully!');
+}
 }

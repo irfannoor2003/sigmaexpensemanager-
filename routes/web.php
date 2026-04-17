@@ -118,4 +118,7 @@ Route::middleware(['custom.auth', 'role:expense_manager'])->prefix('manager')->n
     // Suggestion: Use the controller for this to handle the filtering logic properly
     Route::get('/my-expenses', [ExpenseController::class, 'expenseOverview'])->name('my-expenses');
 
+ Route::get('/expense/{expense}/edit', [ExpenseController::class, 'edit'])->name('expense.edit');
+Route::put('/expense/{expense}', [ExpenseController::class, 'update'])->name('expense.update');
+
 });

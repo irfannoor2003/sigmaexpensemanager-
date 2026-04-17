@@ -298,6 +298,15 @@ return [
 'Year'=>'Year',
 'Total Annual Amount Spent'=>'Total Annual Amount Spent',
 'Fiscal'=>'Fiscal',
+ 'Sigma Engineering Services'=> 'Sigma Engineering Services',
+
+//  Update Page
+
+ 'Edit_Expense'=>'Edit Expense',
+ 'Update_your'=>'Update your expense record',
+ 'Current_Receipt'=>'Current Receipt',
+ 'Update_Expense'=>'Update Expense',
+ 'Replace Receipt (Optional)'=>'Replace Receipt (Optional)',
 
 
 
