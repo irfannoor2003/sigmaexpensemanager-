@@ -66,7 +66,7 @@ return [
 // Admin Analytics Page
     'Live Sync' =>'Live Sync',
     'Financial Intelligence'=>'Financial Intelligence',
-    'HR Credits vs Manager Disbursements '=>'HR Credits vs Manager Disbursements • Fy '. date('Y'),
+    'HR Credits vs Manager Disbursements'=>'HR Credits vs Manager Disbursements • Fy '. date('Y'),
     'Financial Year'=> 'Financial Year ' . date('Y'),
     'SYNC'=>'SYNC',
     // Card Section
@@ -307,6 +307,7 @@ return [
  'Current_Receipt'=>'Current Receipt',
  'Update_Expense'=>'Update Expense',
  'Replace Receipt (Optional)'=>'Replace Receipt (Optional)',
+ 'Amount (Rs.) — Locked'=>'Amount (Rs.) — Locked',
 
 
 

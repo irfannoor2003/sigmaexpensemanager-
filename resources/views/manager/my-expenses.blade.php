@@ -327,10 +327,10 @@
         new Chart(ctx, {
             type: 'bar', // Changed from 'line' to 'bar'
             data: {
-                labels: {!! json_encode($expenses->pluck('expense_date')->map(fn($d) => $d->format('d M'))->toArray()) !!},
+                labels: {!! json_encode($chartDates->toArray()) !!},
                 datasets: [{
                     label: 'Spent',
-                    data: {!! json_encode($expenses->pluck('amount')->toArray()) !!},
+                   data: {!! json_encode($chartAmounts->toArray()) !!},
                     backgroundColor: gradient,
                     hoverBackgroundColor: '#059669', // Darker pink on hover
                     borderRadius: 8, // Gives the bars rounded tops

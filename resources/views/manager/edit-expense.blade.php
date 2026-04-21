@@ -83,17 +83,16 @@
                             required>
                     </div>
 
-                    {{-- Amount --}}
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 ml-1">
-                           {{__('app.Amount (Rs.)')}}
-                        </label>
-
-                        <input type="number" name="amount"
-                            value="{{ old('amount', $expense->amount) }}"
-                            class="w-full px-5 py-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500/20 outline-none"
-                            required>
-                    </div>
+                    {{-- Amount is locked after submission --}}
+<div>
+    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2 ml-1">
+        {{__('app.Amount (Rs.) — Locked')}}
+    </label>
+    <div class="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl px-4 py-3 text-gray-500 dark:text-gray-400 cursor-not-allowed">
+        Rs. {{ number_format($expense->amount) }}
+    </div>
+    {{-- No input field — amount never gets submitted --}}
+</div>
 
                     {{-- Date --}}
                     <div>

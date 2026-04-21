@@ -304,6 +304,7 @@ return [
  'Current_Receipt'=>'موجودہ رسید',
  'Update_Expense'=>'اخراجات کو اپ ڈیٹ کریں۔',
  'Replace Receipt (Optional)'=>'رسید کو تبدیل کریں (اختیاری)',
+ 'Amount (Rs.) — Locked'=>'رقم (روپے) — ناقابل تبدیلی',
 
 
 'months' => [

@@ -292,12 +292,19 @@ public function expenseOverview(Request $request)
     $daysInMonth = $date->daysInMonth;
     $averagePerDay = $daysInMonth > 0 ? $totalSpend / $daysInMonth : 0;
 
+    // 📊 CHART: Group by day, sum amounts  ← ADD THIS
+    $grouped = $allExpenses->groupBy(fn($e) => $e->expense_date->format('d M'));
+    $chartDates   = $grouped->keys();
+    $chartAmounts = $grouped->map(fn($g) => $g->sum('amount'))->values();
+
     return view('manager.my-expenses', compact(
         'expenses',
         'allExpenses',
         'totalSpend',
         'totalLogs',
-        'averagePerDay'
+        'averagePerDay',
+        'chartDates',    // ← ADD
+        'chartAmounts',  // ← ADD
     ));
 }
 public function edit(Expense $expense)
@@ -320,16 +327,13 @@ public function update(Request $request, Expense $expense)
     $request->validate([
         'category_id'  => 'required|exists:expense_categories,id',
         'title'        => 'required|string|max:255',
-        'amount'       => 'required|numeric|min:1',
         'expense_date' => 'required|date',
         'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'remarks'      => 'nullable|string',
+        // ❌ 'amount' removed — never touch amount after creation
     ]);
 
     DB::transaction(function () use ($request, $expense) {
-
-        $oldAmount = $expense->amount;
-        $user = auth()->user();
 
         // Handle image update
         if ($request->hasFile('image')) {
@@ -337,37 +341,16 @@ public function update(Request $request, Expense $expense)
             $expense->image = $path;
         }
 
-        // Update expense
+        // ✅ Only update safe fields — amount is intentionally excluded
         $expense->update([
             'category_id'  => $request->category_id,
             'title'        => $request->title,
-            'amount'       => $request->amount,
             'expense_date' => $request->expense_date,
             'description'  => $request->remarks,
+            // ❌ No 'amount' here
         ]);
 
-        /**
-         * 🔥 FIX WALLET DIFFERENCE (IMPORTANT)
-         * If user changes amount, adjust wallet properly
-         */
-        $difference = $request->amount - $oldAmount;
-
-        if ($difference != 0) {
-            WalletTransaction::create([
-                'user_id'    => $user->id,
-                'amount'     => abs($difference),
-                'type'       => $difference > 0 ? 'debit' : 'credit',
-                'remarks'    => 'Expense Adjustment: ' . $expense->title,
-                'status'     => 'approved',
-                'created_by' => $user->id
-            ]);
-
-            if ($difference > 0) {
-                $user->decrement('wallet', $difference);
-            } else {
-                $user->increment('wallet', abs($difference));
-            }
-        }
+        // ✅ No wallet transaction, no increment/decrement — nothing financial changes
     });
 
     return redirect()

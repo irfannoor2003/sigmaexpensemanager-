@@ -138,87 +138,118 @@
 </style>
 
 <script>
-   (function() {
+(function () {
     let expression = "";
+    let justCalculated = false; // ← tracks if = was just pressed
 
-    const display = document.getElementById('current-val');
-    const historyDisplay = document.getElementById('history');
+    const display     = document.getElementById('current-val');
+    const historyEl   = document.getElementById('history');
 
     function updateDisplay() {
         if (!display) return;
-
-        display.innerText = expression || "0";
-        historyDisplay.innerText = "";
-
-        display.style.fontSize = expression.length > 10 ? "28px" : "48px";
+        // Show only the last number being typed for cleanliness
+        const parts = expression.split(/[\+\-\*\/]/);
+        const last  = parts[parts.length - 1];
+        display.innerText        = last || expression || "0";
+        display.style.fontSize   = (last || expression).length > 10 ? "28px" : "48px";
     }
 
-    // ✅ INPUT HANDLING
-    window.appendNum = function(num) {
+    window.appendNum = function (num) {
+        // If user types a digit right after =, start fresh
+        if (justCalculated) {
+            expression     = "";
+            historyEl.innerText = "";
+            justCalculated = false;
+        }
+
+        // Prevent multiple decimals in same number segment
+        const parts = expression.split(/[\+\-\*\/]/);
+        const last  = parts[parts.length - 1];
+        if (num === "." && last.includes(".")) return;
+
         expression += num;
         updateDisplay();
         navigator.vibrate?.(10);
     };
 
-    window.appendOp = function(op) {
+    window.appendOp = function (op) {
+        if (expression === "" && op !== "-") return; // no leading operators except minus
+
+        justCalculated = false; // allow chaining after =
+
         const lastChar = expression.slice(-1);
 
-        // prevent double operators
-        if ("+-*/%".includes(lastChar)) {
+        // Replace trailing operator instead of stacking
+        if ("+-*/".includes(lastChar)) {
             expression = expression.slice(0, -1);
         }
+
+        // Show full expression in history while typing
+        historyEl.innerText = expression + " " + opSymbol(op);
 
         expression += op;
         updateDisplay();
     };
 
-    window.clearDisplay = function() {
-        expression = "";
-        updateDisplay();
+    window.clearDisplay = function () {
+        expression          = "";
+        justCalculated      = false;
+        historyEl.innerText = "";
+        display.innerText   = "0";
+        display.style.fontSize = "48px";
     };
 
-    window.backspace = function() {
+    window.backspace = function () {
+        if (justCalculated) {
+            // Clear everything on backspace after result
+            window.clearDisplay();
+            return;
+        }
         expression = expression.slice(0, -1);
         updateDisplay();
     };
 
-    // ✅ SAFE CALCULATION (NO eval)
-    function calculateExpression(expr) {
+    window.calculate = function () {
+        if (!expression) return;
+
+        let expr = expression
+            .replace(/×/g, "*")
+            .replace(/÷/g, "/")
+            .replace(/%/g, "/100");
+
+        // Strip trailing operator
+        expr = expr.replace(/[\+\-\*\/]$/, "");
+
+        let result;
         try {
-            // Replace symbols
-            expr = expr.replace(/×/g, '*')
-                       .replace(/÷/g, '/')
-                       .replace(/%/g, '/100');
-
-            // Use Function instead of eval (safer)
-            return Function('"use strict"; return (' + expr + ')')();
+            result = Function('"use strict"; return (' + expr + ')')();
+            // Round floating point noise (e.g. 0.1+0.2 = 0.3 not 0.30000000004)
+            result = parseFloat(result.toFixed(10));
         } catch {
-            return "Error";
+            display.innerText   = "Error";
+            historyEl.innerText = "";
+            expression          = "";
+            return;
         }
-    }
 
-    window.calculate = function() {
-        const result = calculateExpression(expression);
+        historyEl.innerText    = expression + " =";
+        expression             = String(result);
+        justCalculated         = true;
 
-        historyDisplay.innerText = expression + " =";
-        expression = String(result);
-
-        updateDisplay();
+        display.innerText      = expression;
+        display.style.fontSize = expression.length > 10 ? "28px" : "48px";
     };
 
-    // ✅ CLOCK (12h with AM/PM)
+    function opSymbol(op) {
+        return { "+": "+", "-": "−", "*": "×", "/": "÷", "%": "%" }[op] || op;
+    }
+
+    // Clock
     setInterval(() => {
-        const clockEl = document.getElementById('calc-clock');
-
-        if (clockEl) {
-            const now = new Date();
-
-            clockEl.innerText = now.toLocaleTimeString('en-US', {
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
-            });
-        }
+        const el = document.getElementById('calc-clock');
+        if (el) el.innerText = new Date().toLocaleTimeString('en-US', {
+            hour: 'numeric', minute: '2-digit', hour12: true
+        });
     }, 1000);
 
 })();
