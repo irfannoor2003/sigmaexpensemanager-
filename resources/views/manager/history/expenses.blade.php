@@ -52,16 +52,27 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm border-collapse">
                         <thead>
-                            <tr
-                                class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.Expense Details')}}
-                                </th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.CATEGORY')}}</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.Date (Actual)')}}th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">{{__('app.AMOUNT')}}</th>
-                                <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px] text-right">{{__('app.STATUS')}}
-                                </th>
-                            </tr>
+                          <tr class="text-gray-400 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
+    <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">
+        {{ __('app.Expense Details') }}
+    </th>
+
+    <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">
+        {{ __('app.CATEGORY') }}
+    </th>
+
+    <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">
+        {{ __('app.Date (Actual)') }}
+    </th>
+
+    <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px]">
+        {{ __('app.AMOUNT') }}
+    </th>
+
+    <th class="px-8 py-6 font-bold tracking-widest uppercase text-[9px] text-right">
+        {{ __('app.STATUS') }}
+    </th>
+</tr>
                         </thead>
                         <tbody class="divide-y divide-gray-50 dark:divide-white/5">
                             @forelse($expenses as $item)

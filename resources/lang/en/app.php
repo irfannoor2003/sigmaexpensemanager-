@@ -136,7 +136,7 @@ return [
 
 // Login Page
 'Sigma Expense'=>'Sigma Expense',
-'Manager'=>'',
+'Manager'=>'Manager',
 'Please enter your security PIN'=>'Please enter your security PIN',
 'SIGMA ENGINEERING SERVICES - © 2026'=>'SIGMA ENGINEERING SERVICES - © 2026',
 

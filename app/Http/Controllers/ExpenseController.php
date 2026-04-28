@@ -162,7 +162,7 @@ for ($i = 5; $i >= 0; $i--) {
         DB::transaction(function () use ($request, $user, $expenseDate) {
             $path = $request->file('image')->store('receipts', 'public');
 
-            Expense::create([
+            $expense = Expense::create([
                 'user_id'      => $user->id,
                 'category_id'  => $request->category_id,
                 'title'        => $request->title,
@@ -179,7 +179,8 @@ for ($i = 5; $i >= 0; $i--) {
                 'type'       => 'debit',
                 'remarks'    => 'Expense: ' . $request->title,
                 'status'     => 'approved',
-                'created_by' => $user->id
+                'created_by' => $user->id,
+                'expense_id' => $expense->id,
             ]);
 
             $user->decrement('wallet', $request->amount);
@@ -327,13 +328,18 @@ public function update(Request $request, Expense $expense)
     $request->validate([
         'category_id'  => 'required|exists:expense_categories,id',
         'title'        => 'required|string|max:255',
+        'amount'       => 'required|numeric|min:0',
         'expense_date' => 'required|date',
         'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'remarks'      => 'nullable|string',
-        // ❌ 'amount' removed — never touch amount after creation
     ]);
 
     DB::transaction(function () use ($request, $expense) {
+
+        // Store old amount for wallet adjustment
+        $oldAmount = $expense->amount;
+        $newAmount = $request->amount;
+        $amountDiff = $newAmount - $oldAmount;
 
         // Handle image update
         if ($request->hasFile('image')) {
@@ -341,16 +347,27 @@ public function update(Request $request, Expense $expense)
             $expense->image = $path;
         }
 
-        // ✅ Only update safe fields — amount is intentionally excluded
+        // Update expense
         $expense->update([
             'category_id'  => $request->category_id,
             'title'        => $request->title,
+            'amount'       => $request->amount,
             'expense_date' => $request->expense_date,
             'description'  => $request->remarks,
-            // ❌ No 'amount' here
         ]);
 
-        // ✅ No wallet transaction, no increment/decrement — nothing financial changes
+        // Update wallet transaction and user wallet balance
+        if ($amountDiff != 0) {
+            // Find the related wallet transaction using expense_id
+            $walletTransaction = WalletTransaction::where('expense_id', $expense->id)->first();
+
+            if ($walletTransaction) {
+                $walletTransaction->update(['amount' => $newAmount]);
+            }
+
+            // Adjust user's wallet (debit means deduction from wallet)
+            $expense->user->decrement('wallet', $amountDiff);
+        }
     });
 
     return redirect()
