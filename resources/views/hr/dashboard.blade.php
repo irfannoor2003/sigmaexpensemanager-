@@ -427,6 +427,7 @@
                                     <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">{{__('app.AMOUNT')}}</th>
                                     {{-- New Date Column Header --}}
                                     <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">{{__('app.Date of Created')}} </th>
+                                    <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px]">{{__('app.Actual Date')}} </th>
                                     <th class="px-6 py-4 font-medium tracking-wider uppercase text-[10px] text-right">
                                         {{__('app.Verification')}}</th>
                                 </tr>
@@ -453,7 +454,15 @@
                                                 <span class="text-gray-900 dark:text-gray-200 font-medium">
                                                     {{ $log->created_at->format('d M, Y') }}
                                                 </span>
+                                            </div>
+                                        </td>
 
+                                        {{-- Actual Date Column Data --}}
+                                        <td class="px-6 py-4">
+                                            <div class="flex flex-col">
+                                                <span class="text-gray-900 dark:text-gray-200 font-medium">
+                                                    {{ $log->expense_date ? $log->expense_date->format('d M, Y') : 'No Date Set' }}
+                                                </span>
                                             </div>
                                         </td>
 

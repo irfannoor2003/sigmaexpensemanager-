@@ -161,6 +161,10 @@
                                     {{ __('app.CATEGORY') }}</th>
                                 <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
                                     {{ __('app.AMOUNT') }}</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
+                                    {{ __('app.Date of Created') }}</th>
+                                <th class="pb-4 font-bold text-[10px] uppercase tracking-[0.15em]">
+                                    {{ __('app.Actual Date') }}</th>
                                 <th class="pb-4 font-bold text-right text-[10px] uppercase tracking-[0.15em]">
                                     {{ __('app.STATUS') }}
                                 </th>
@@ -189,6 +193,12 @@
                                     <td class="py-4 font-mono font-bold text-pink-600 dark:text-pink-400">
                                         {{ number_format($expense->amount) }} PKR
                                     </td>
+                                    <td class="py-4 text-gray-500 dark:text-gray-400">
+                                        {{ $expense->created_at->format('d M, Y') }}
+                                    </td>
+                                    <td class="py-4 text-gray-500 dark:text-gray-400">
+                                        {{ $expense->expense_date ? $expense->expense_date->format('d M, Y') : 'No Date Set' }}
+                                    </td>
                                     <td class="py-4 text-right">
                                         @php
                                             $statusClasses = [
@@ -211,7 +221,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="py-12 text-center">
+                                    <td colspan="7" class="py-12 text-center">
                                         <p class="text-gray-400 italic text-sm">No live activity recorded yet.</p>
                                     </td>
                                 </tr>
@@ -251,6 +261,8 @@
                                 <div class="font-mono text-pink-500 font-bold">
                                     PKR {{ number_format($expense->amount) }}
                                 </div>
+                                <div><span class="font-semibold">Created:</span> {{ $expense->created_at->format('d M, Y') }}</div>
+                                <div><span class="font-semibold">Actual:</span> {{ $expense->expense_date ? $expense->expense_date->format('d M, Y') : 'No Date Set' }}</div>
                             </div>
 
                         </div>
