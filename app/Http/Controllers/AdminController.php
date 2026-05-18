@@ -110,7 +110,7 @@ if (count($filteredPin) === 5) {
     Carbon::setLocale(app()->getLocale());
 
     for ($i = $monthsCount - 1; $i >= 0; $i--) {
-        $date = Carbon::now()->subMonths($i);
+        $date = Carbon::now()->startOfMonth()->subMonths($i);
         $monthlyLabels[] = $date->translatedFormat('M');
 
         $monthlyData[] = $expenses->filter(function ($expense) use ($date) {

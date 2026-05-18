@@ -20,10 +20,10 @@
                     </span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                    {{__('app.Financial Intelligence')}}
+                    {{__('app.Financial Intelligence')}} <span class="text-emerald-500">• {{ $year }}</span>
                 </h1>
                 <p class="text-gray-500 dark:text-gray-400 text-sm">
-                   {{__('app.HR Credits vs Manager Disbursements', ['year' => date('Y')])}}
+                   {{__('app.HR Credits vs Manager Disbursements', ['year' => $year])}}
                 </p>
             </div>
 
@@ -43,6 +43,11 @@
                     class="w-full sm:w-auto px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-pink-500/20">
                     {{__('app.SYNC')}}
                 </button>
+
+                <a href="{{ route('admin.analytics') }}"
+                    class="w-full sm:w-auto px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-400 text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-rose-500 hover:text-white transition-all shadow-sm text-center flex items-center justify-center">
+                    {{__('app.Reset')}}
+                </a>
             </form>
         </div>
 

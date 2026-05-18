@@ -50,11 +50,30 @@
             </form>
 
             {{-- Footer --}}
-            <div class="mt-8 pt-6 border-t border-gray-100 dark:border-white/5">
-                <p class="text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                    {{__('app.Sigma Engineering Services')}}
-                </p>
-            </div>
+            {{-- Footer --}}
+<div class="mt-8 pt-6 border-t border-gray-100 dark:border-white/5 text-center">
+
+    <!-- COMPANY NAME -->
+    <p class="text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500">
+        {{ __('app.Sigma Engineering Services') }}
+    </p>
+
+    <!-- 🔗 BACK TO ATTENDANCE PORTAL -->
+    <a href="https://portal.sessigmasoft.com/"
+       class="mt-2 inline-flex items-center gap-2 text-[11px]
+              text-gray-400 dark:text-gray-500
+              hover:text-[#ff2ba6]
+              transition-all duration-300 group ">
+
+        <i data-lucide="calendar-check"
+           class="w-4 h-4 transition-all duration-300 group-hover:scale-110 group-hover:text-[#ff2ba6] " style="color: #fa64b6;"></i>
+
+        <span class="tracking-wide">
+            Back to Attendance Portal
+        </span>
+    </a>
+
+</div>
         </div>
     </div>
 
@@ -102,5 +121,11 @@
             }
         });
     </script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
 
 </x-app-layout>

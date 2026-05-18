@@ -52,9 +52,9 @@ class HRController extends Controller
     // ✅ Spending Graph Filter Logic
     $filter = $request->query('filter', '7days'); // default last 7 days
     $startDate = match($filter) {
-        'lastMonth' => now()->subMonth(),
-        'last3Months' => now()->subMonths(3),
-        'lastYear' => now()->subYear(),
+        'lastMonth' => now()->subMonthNoOverflow(),
+        'last3Months' => now()->subMonthsNoOverflow(3),
+        'lastYear' => now()->subYearNoOverflow(),
         default => now()->subDays(7),
     };
 

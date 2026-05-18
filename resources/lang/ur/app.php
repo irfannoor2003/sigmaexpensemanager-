@@ -322,4 +322,25 @@ return [
     12 => 'دسمبر',
 ],
 
+// Diary Feature
+'Diary' => 'ڈائری',
+'Profiles' => 'پروفائلز',
+'Person Name' => 'شخص کا نام',
+'Phone Number' => 'فون نمبر',
+'Add Profile' => 'پروفائل شامل کریں',
+'Add Entry' => 'اندراج شامل کریں',
+'Diary Entries' => 'ڈائری کے اندراجات',
+'Export Data' => 'ڈیٹا برآمد کریں',
+'No profiles found' => 'کوئی پروفائل نہیں ملا',
+'Update Entry' => 'اندراج تبدیل کریں',
+'Delete Entry' => 'اندراج حذف کریں',
+'Photo' => 'تصویر',
+'Parchi' => 'پرچی',
+'Total Amount' => 'کل رقم',
+'Pending Balance'=>'بقایا رقم',
+'Total Cleared'=>'کل کلیئرڈ',
+'Export Filtered'=>'فلٹر شدہ برآمد کریں',
+'Price'=>'قیمت',
+'No records for this filter'=>'اس فلٹر کے لیے کوئی ریکارڈ نہیں ہے۔',
+
 ];

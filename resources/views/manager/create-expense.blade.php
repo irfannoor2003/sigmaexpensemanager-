@@ -9,7 +9,7 @@
         </svg>
     </a>
 
-    <div class="p-4 sm:p-8 min-h-screen flex items-center justify-center">
+    <div class="p-4 sm:p-8 min-h-screen flex items-center justify-center mb-12">
 
         <div class="max-w-md w-full">
 
@@ -51,7 +51,7 @@
 
             {{-- Card --}}
             <div
-                class="rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-2xl shadow-indigo-500/5 p-8 backdrop-blur-sm">
+                class="rounded-[2.5rem] bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-2xl shadow-indigo-500/5 p-8 backdrop-blur-sm " style="margin-bottom:55px;">
 
                 <form action="{{ route('manager.expense') }}" method="POST" enctype="multipart/form-data"
                     class="space-y-6">
@@ -178,7 +178,7 @@
 
                     {{-- Button --}}
                     <button type="submit"
-                        class="w-full py-4 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
+                        class="w-full py-4 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-2xl font-bold shadow-xl shadow-pink-500/20 transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 mb-20">
                         {{__('app.Submit Expense')}}
                     </button>
 
@@ -188,20 +188,45 @@
     </div>
     <dialog id="cameraModal" class="p-0 rounded-3xl bg-black/80 backdrop-blur-md border border-white/10">
 
-        <div class="p-5 w-[90vw] max-w-md text-center">
-            <video id="camera" autoplay class="w-full rounded-2xl mb-4"></video>
+    <div class="p-5 w-[90vw] max-w-md text-center">
 
-            <div class="flex gap-3">
-                <button onclick="capturePhoto()" class="flex-1 py-3 bg-pink-500 text-white rounded-xl font-bold">
-                    Capture
-                </button>
+        <video id="camera" autoplay playsinline class="w-full rounded-2xl mb-4"></video>
 
-                <button onclick="closeCamera()" class="flex-1 py-3 bg-gray-300 dark:bg-gray-700 rounded-xl">
-                    Cancel
-                </button>
-            </div>
+        <!-- 🔥 ACTION BUTTONS -->
+        <div class="flex gap-3">
+
+            <!-- 🔄 SWITCH CAMERA -->
+            <button onclick="switchCamera()"
+                class="flex-1 py-3 bg-white/10 text-white rounded-xl font-semibold
+                       hover:bg-[#ff2ba6] transition flex items-center justify-center gap-2">
+
+                <!-- ICON -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M4 4v5h.582M20 20v-5h-.581M5.64 5.64A9 9 0 0119 12M4 12a9 9 0 0014.36 6.36"/>
+                </svg>
+
+                Switch
+            </button>
+
+            <!-- 📸 CAPTURE -->
+            <button onclick="capturePhoto()"
+                class="flex-1 py-3 bg-pink-500 text-white rounded-xl font-bold
+                       hover:bg-pink-600 transition">
+                Capture
+            </button>
+
+            <!-- ❌ CANCEL -->
+            <button onclick="closeCamera()"
+                class="flex-1 py-3 bg-gray-300 dark:bg-gray-700 rounded-xl
+                       hover:bg-gray-400 dark:hover:bg-gray-600 transition">
+                Cancel
+            </button>
+
         </div>
-    </dialog>
+    </div>
+</dialog>
 
     {{-- Voice Dictation Script --}}
     <script>
@@ -257,56 +282,77 @@
         updateTimer();
     </script>
 
-    <script>
-        let stream;
+ <script>
+let currentStream = null;
+let useFrontCamera = true;
 
-        async function openCamera() {
-            const modal = document.getElementById('cameraModal');
-            const video = document.getElementById('camera');
+async function openCamera() {
+    await startCamera();
+    document.getElementById('cameraModal').showModal();
+}
 
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: true
-                });
-                video.srcObject = stream;
-                modal.showModal();
-            } catch (err) {
-                alert("Camera access denied or not supported.");
+async function startCamera() {
+    const video = document.getElementById('camera');
+
+    // Stop previous stream
+    if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+    }
+
+    try {
+        currentStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: useFrontCamera ? "user" : "environment"
             }
-        }
+        });
 
-        function closeCamera() {
-            const modal = document.getElementById('cameraModal');
-            modal.close();
+        video.srcObject = currentStream;
+    } catch (err) {
+        alert("Camera not available or permission denied");
+    }
+}
 
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-        }
+function switchCamera() {
+    useFrontCamera = !useFrontCamera;
+    startCamera();
+}
 
-        function capturePhoto() {
-            const video = document.getElementById('camera');
-            const canvas = document.createElement('canvas');
+function closeCamera() {
+    const modal = document.getElementById('cameraModal');
+    modal.close();
 
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+    if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+    }
+}
 
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0);
+function capturePhoto() {
+    const video = document.getElementById('camera');
+    const canvas = document.createElement('canvas');
 
-            canvas.toBlob(blob => {
-                const file = new File([blob], "capture.jpg", {
-                    type: "image/jpeg"
-                });
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
 
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
+    const ctx = canvas.getContext('2d');
 
-                document.getElementById('fileInput').files = dataTransfer.files;
+    // 🔥 FIX: Mirror correction for front camera
+    if (useFrontCamera) {
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+    }
 
-                closeCamera();
-            }, 'image/jpeg');
-        }
-    </script>
+    ctx.drawImage(video, 0, 0);
 
+    canvas.toBlob(blob => {
+        const file = new File([blob], "capture.jpg", { type: "image/jpeg" });
+
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        document.getElementById('fileInput').files = dataTransfer.files;
+
+        closeCamera();
+    }, 'image/jpeg');
+}
+</script>
 </x-app-layout>

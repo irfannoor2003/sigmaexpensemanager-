@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HRController; // ✅ Added this import
 use App\Http\Controllers\ExpenseController; // ✅ Added this import
+use App\Http\Controllers\DiaryController; // ✅ Added this import
 use App\Models\Expense;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -120,5 +121,16 @@ Route::middleware(['custom.auth', 'role:expense_manager'])->prefix('manager')->n
 
  Route::get('/expense/{expense}/edit', [ExpenseController::class, 'edit'])->name('expense.edit');
 Route::put('/expense/{expense}', [ExpenseController::class, 'update'])->name('expense.update');
+
+    // --- Diary (Day Book) ---
+    Route::get('/diary', [DiaryController::class, 'index'])->name('diary.index');
+    Route::post('/diary/profile', [DiaryController::class, 'storeProfile'])->name('diary.profile.store');
+    Route::put('/diary/profile/{profile}', [DiaryController::class, 'updateProfile'])->name('diary.profile.update');
+    Route::get('/diary/profile/{profile}', [DiaryController::class, 'show'])->name('diary.profile.show');
+    Route::post('/diary/profile/{profile}/entry', [DiaryController::class, 'storeEntry'])->name('diary.entry.store');
+    Route::put('/diary/entry/{entry}', [DiaryController::class, 'updateEntry'])->name('diary.entry.update');
+    Route::patch('/diary/entry/{entry}/toggle-clear', [DiaryController::class, 'toggleClearEntry'])->name('diary.entry.toggle-clear');
+    Route::delete('/diary/entry/{entry}', [DiaryController::class, 'destroyEntry'])->name('diary.entry.destroy');
+    Route::get('/diary/profile/{profile}/export', [DiaryController::class, 'export'])->name('diary.export');
 
 });

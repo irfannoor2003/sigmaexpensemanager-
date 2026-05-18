@@ -195,6 +195,8 @@
                         <p class="text-xs font-bold dark:text-white uppercase tracking-tighter">{{__('app.View Expense History')}}
                         </p>
                     </a>
+
+                  
                 </div>
             </div>
             {{-- Transaction Logs Table (Only - amounts) --}}

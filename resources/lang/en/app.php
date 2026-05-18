@@ -8,7 +8,7 @@ return [
     'add_expense' => 'Add Expense',
     'manage_expense' => 'Management Oversight',
     'system_live'=>'System Live ',
-    'sigmaadmindash' => 'Sigma Engineering Services • Financial Year ' . date('Y'),
+    'sigmaadmindash' => 'Sigma Engineering Services • Financial Year :year',
     'expense_log_admin'=>'Expense Logs',
     'manage_user_admin'=>'Manage Users',
     'deep_analytics_admin'=>'Deep Analytics',
@@ -66,8 +66,8 @@ return [
 // Admin Analytics Page
     'Live Sync' =>'Live Sync',
     'Financial Intelligence'=>'Financial Intelligence',
-    'HR Credits vs Manager Disbursements'=>'HR Credits vs Manager Disbursements • Fy '. date('Y'),
-    'Financial Year'=> 'Financial Year ' . date('Y'),
+    'HR Credits vs Manager Disbursements'=>'HR Credits vs Manager Disbursements • Fy :year',
+    'Financial Year'=> 'Financial Year :year',
     'SYNC'=>'SYNC',
     // Card Section
     'TOTAL CREDITS BY HR'=>'TOTAL CREDITS BY HR',
@@ -138,7 +138,7 @@ return [
 'Sigma Expense'=>'Sigma Expense',
 'Manager'=>'Manager',
 'Please enter your security PIN'=>'Please enter your security PIN',
-'SIGMA ENGINEERING SERVICES - © 2026'=>'SIGMA ENGINEERING SERVICES - © 2026',
+'SIGMA ENGINEERING SERVICES - © :year'=>'SIGMA ENGINEERING SERVICES - © :year',
 
 // HR Credits Page
 'Wallet Funding'=>'Wallet Funding',
@@ -245,7 +245,7 @@ return [
 'Transaction Logs'=>'Transaction Logs',
 'No transaction history.'=>'No transaction history.',
 'TopupHistory'=>'Top-up History',
-'No top-up records.'=>'No top-up records',
+'No top-up records.'=>'No top-up records.',
 'Request Funds'=>'Request Funds',
 'Reason / Note'=>'Reason / Note',
 'WhyDo'=>'Why do you need more funds?',
@@ -325,5 +325,26 @@ return [
     11 => 'November',
     12 => 'December',
 ],
+
+// Diary Feature
+'Diary' => 'Diary',
+'Profiles' => 'Profiles',
+'Person Name' => 'Person Name',
+'Phone Number' => 'Phone Number',
+'Add Profile' => 'Add Profile',
+'Add Entry' => 'Add Entry',
+'Diary Entries' => 'Diary Entries',
+'Export Data' => 'Export Data',
+'No profiles found' => 'No profiles found',
+'Update Entry' => 'Update Entry',
+'Delete Entry' => 'Delete Entry',
+'Photo' => 'Photo',
+'Parchi' => 'Parchi',
+'Total Amount' => 'Total Amount',
+'Pending Balance'=>'Pending Balance',
+'Total Cleared'=>'Total Cleared',
+'Export Filtered'=>'Export Filtered',
+'Price'=>'Price',
+'No records for this filter'=>'No records for this filter.',
 
 ];

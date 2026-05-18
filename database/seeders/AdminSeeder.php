@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Hunzla Malik',
                 'name_ur' => 'ہنزلا ملک',
-                'pin' => Hash::make('12345'),
+                'pin' => Hash::make('92403'),
                 'role' => 'admin',
                 'wallet' => 0
             ]
@@ -26,7 +26,7 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Moazam Shahdi',
                 'name_ur' => 'معاذم شاہد',
-                'pin' => Hash::make('11111'),
+                'pin' => Hash::make('41648'),
                 'role' => 'hr',
                 'wallet' => 0
             ]
@@ -37,7 +37,7 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Arif Hussain',
                 'name_ur' => 'عارف حسین',
-                'pin' => Hash::make('22222'),
+                'pin' => Hash::make('72637'),
                 'role' => 'expense_manager',
                 'wallet' => 0
             ]

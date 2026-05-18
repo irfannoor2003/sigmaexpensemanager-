@@ -16,8 +16,8 @@
                 </span>
 
                 <a href="{{ route('manager.create-expense') }}"
-   class="h-12 w-12 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500
-   shadow-lg shadow-pink-500/30
+   class="h-12 w-12 rounded-2xl bg-green-500
+   shadow-lg shadow-green-500/30
    flex items-center justify-center
    transition-all duration-300
    hover:scale-110 active:scale-95">
@@ -78,6 +78,26 @@
     </span>
 
 </button>
+            </div>
+
+            <!-- DIARY BUTTON -->
+            <div class="group relative flex justify-end">
+                <span class="absolute right-14 top-1/2 -translate-y-1/2
+                    bg-black/80 text-white text-xs px-2 py-1 rounded-lg
+                    opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                    {{ __('app.Diary') }}
+                </span>
+                <a href="{{ route('manager.diary.index') }}"
+                    class="h-12 w-12 rounded-2xl bg-yellow-500
+                    shadow-lg shadow-yellow-500/30
+                    flex items-center justify-center
+                    transition-all duration-300
+                    hover:scale-110 active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                </a>
             </div>
 
         </div>
@@ -242,7 +262,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ✅ IMPORTANT: run once on load
-toggleUI(window.scrollY > 120);
+toggleUI(true); // Always show for testing
 
 
     /* =========================

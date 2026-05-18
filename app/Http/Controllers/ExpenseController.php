@@ -87,7 +87,7 @@ $chartData = [];
 $langMonths = __('app.months');
 
 for ($i = 5; $i >= 0; $i--) {
-    $month = Carbon::now()->subMonths($i);
+    $month = Carbon::now()->startOfMonth()->subMonths($i);
 
     $months[] = $langMonths[$month->month]; // 👈 THIS FIX
 
